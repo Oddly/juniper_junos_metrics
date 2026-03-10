@@ -1,14 +1,13 @@
-resource.url: {{host}}/rpc/get-route-engine-information@format=json
-auth:
-  basic:
-    user: {{username}}
-    password: {{password}}
+resource.url: {{#if use_https}}https{{else}}http{{/if}}://{{username}}:{{password}}@{{host}}/rpc/get-route-engine-information@format=json
 resource:
   ssl:
     verification_mode: {{ssl_verification_mode}}
 resource.timeout: 30s
 state:
   initial: {}
+redact:
+  fields:
+    - resource.url
 program: |
   request("GET", state.url).do_request().as(resp,
     resp.StatusCode == 200 ?
@@ -17,12 +16,14 @@ program: |
         && "route-engine" in body["route-engine-information"][0] ?
           {"events": body["route-engine-information"][0]["route-engine"].map(re, {
             "message": re.encode_json(),
+            "juniper.junos.route_engine.slot": "slot" in re && size(re["slot"]) > 0 ? string(re["slot"][0]["data"]) : "unknown",
+            "juniper.junos.route_engine.model": "model" in re && size(re["model"]) > 0 ? string(re["model"][0]["data"]) : "unknown",
           })}
         :
-          {"events": []}
+          {"events": [{"message": "debug: body structure mismatch", "juniper.junos.route_engine.slot": "debug", "juniper.junos.route_engine.model": "debug"}]}
       )
     :
-      {"events": []}
+      {"events": [{"message": "debug: non-200 status " + string(resp.StatusCode), "juniper.junos.route_engine.slot": "debug", "juniper.junos.route_engine.model": "debug"}]}
   )
 interval: {{period}}
 {{#if tags}}

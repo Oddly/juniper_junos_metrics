@@ -2,10 +2,6 @@
 description: Pipeline for JunOS storage metrics.
 processors:
   - set:
-      tag: set_event_ingested
-      field: event.ingested
-      value: "{{_ingest.timestamp}}"
-  - set:
       tag: set_event_kind
       field: event.kind
       value: metric
@@ -17,6 +13,18 @@ processors:
       tag: set_event_dataset
       field: event.dataset
       value: juniper_junos_metrics.storage
+  - set:
+      tag: set_observer_vendor
+      field: observer.vendor
+      value: Juniper
+  - set:
+      tag: set_observer_product
+      field: observer.product
+      value: JunOS
+  - set:
+      tag: set_observer_type
+      field: observer.type
+      value: router
 
   # Parse JSON from message
   - json:
@@ -103,27 +111,6 @@ processors:
             ctx.juniper.junos.storage.used_percent = Float.parseFloat(up.toString().trim());
           } catch (Exception e) {}
         }
-
-  # OTel-aligned: system.filesystem.usage = used_bytes
-  - script:
-      tag: script_compute_filesystem_usage
-      lang: painless
-      if: ctx.juniper?.junos?.storage?.used_bytes != null
-      source: |
-        if (ctx.system == null) ctx.system = new HashMap();
-        if (ctx.system.filesystem == null) ctx.system.filesystem = new HashMap();
-        ctx.system.filesystem.usage = ctx.juniper.junos.storage.used_bytes;
-
-  # OTel-aligned: system.filesystem.utilization = used_percent / 100
-  - script:
-      tag: script_compute_filesystem_utilization
-      lang: painless
-      if: ctx.juniper?.junos?.storage?.used_percent != null
-      source: |
-        double pct = ctx.juniper.junos.storage.used_percent;
-        if (ctx.system == null) ctx.system = new HashMap();
-        if (ctx.system.filesystem == null) ctx.system.filesystem = new HashMap();
-        ctx.system.filesystem.utilization = pct / 100.0;
 
   # Clean up temporary fields
   - remove:

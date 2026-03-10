@@ -1,14 +1,13 @@
-resource.url: {{host}}/rpc/get-environment-information@format=json
-auth:
-  basic:
-    user: {{username}}
-    password: {{password}}
+resource.url: {{#if use_https}}https{{else}}http{{/if}}://{{username}}:{{password}}@{{host}}/rpc/get-environment-information@format=json
 resource:
   ssl:
     verification_mode: {{ssl_verification_mode}}
 resource.timeout: 30s
 state:
   initial: {}
+redact:
+  fields:
+    - resource.url
 program: |
   request("GET", state.url).do_request().as(resp,
     resp.StatusCode == 200 ?
@@ -17,12 +16,13 @@ program: |
         && "environment-item" in body["environment-information"][0] ?
           {"events": body["environment-information"][0]["environment-item"].map(item, {
             "message": item.encode_json(),
+            "juniper.junos.environment.name": "name" in item && size(item["name"]) > 0 ? string(item["name"][0]["data"]) : "unknown",
           })}
         :
-          {"events": []}
+          {"events": [{"message": "debug: body structure mismatch", "juniper.junos.environment.name": "debug"}]}
       )
     :
-      {"events": []}
+      {"events": [{"message": "debug: non-200 status " + string(resp.StatusCode), "juniper.junos.environment.name": "debug"}]}
   )
 interval: {{period}}
 {{#if tags}}

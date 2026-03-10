@@ -16,54 +16,66 @@ An example event for `route_engine` looks as following:
 
 ```json
 {
-    "system": {
-        "cpu": {
-            "utilization": 0.02
-        },
-        "memory": {
-            "utilization": 0.56
-        }
-    },
     "event": {
-        "ingested": "2026-03-10T08:15:55.440911974Z",
         "dataset": "juniper_junos_metrics.route_engine",
         "kind": "metric",
         "module": "juniper_junos_metrics"
     },
+    "host": {
+        "uptime": 11690
+    },
     "juniper": {
         "junos": {
             "route_engine": {
-                "start_time": "2026-03-10T07:40:35Z",
-                "memory": {
-                    "buffer_utilization": 56.0,
-                    "total": 1920991232
-                },
-                "load_average": {
-                    "five_minute": 0.65,
-                    "fifteen_minute": 0.44,
-                    "one_minute": 0.47
+                "cpu": {
+                    "background": 0.0,
+                    "idle": 89.0,
+                    "interrupt": 0.0,
+                    "kernel": 5.0,
+                    "user": 6.0
                 },
                 "last_reboot_reason": "Router rebooted after a normal shutdown.",
+                "load_average": {
+                    "fifteen_minute": 0.58,
+                    "five_minute": 0.47,
+                    "one_minute": 0.49
+                },
                 "mastership_state": "master",
-                "cpu": {
-                    "interrupt": 0.0,
-                    "idle": 98.0,
-                    "user": 1.0,
-                    "background": 0.0,
-                    "kernel": 1.0
+                "memory": {
+                    "buffer_utilization": 19.0,
+                    "total": 1920991232
                 },
                 "model": "RE-VMX",
                 "slot": "0",
+                "start_time": "2026-03-10T07:40:35Z",
                 "status": "OK",
-                "uptime": 533
+                "uptime": 11690
             }
         }
     },
-    "@timestamp": "2026-03-10T08:00:00.000Z",
+    "observer": {
+        "product": "JunOS",
+        "type": "router",
+        "vendor": "Juniper"
+    },
+    "system": {
+        "cpu": {
+            "utilization": 0.11
+        },
+        "memory": {
+            "utilization": 0.19
+        }
+    },
     "data_stream": {
         "type": "metrics",
         "dataset": "juniper_junos_metrics.route_engine",
         "namespace": "default"
+    },
+    "ecs": {
+        "version": "8.0.0"
+    },
+    "input": {
+        "type": "cel"
     }
 }
 ```
@@ -85,27 +97,31 @@ Refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ec
 | event.dataset | Event dataset. | constant_keyword |  |  |
 | event.kind | The kind of event. | keyword |  |  |
 | event.module | Event module. | constant_keyword |  |  |
-| juniper.junos.route_engine.cpu.background | CPU background utilization percentage. | float | percent | gauge |
-| juniper.junos.route_engine.cpu.idle | CPU idle percentage. | float | percent | gauge |
-| juniper.junos.route_engine.cpu.interrupt | CPU interrupt utilization percentage. | float | percent | gauge |
-| juniper.junos.route_engine.cpu.kernel | CPU kernel utilization percentage. | float | percent | gauge |
-| juniper.junos.route_engine.cpu.user | CPU user utilization percentage. | float | percent | gauge |
-| juniper.junos.route_engine.last_reboot_reason | Reason for the last reboot. | keyword |  |  |
-| juniper.junos.route_engine.load_average.fifteen_minute | Fifteen-minute load average. | float |  | gauge |
-| juniper.junos.route_engine.load_average.five_minute | Five-minute load average. | float |  | gauge |
-| juniper.junos.route_engine.load_average.one_minute | One-minute load average. | float |  | gauge |
-| juniper.junos.route_engine.mastership_state | Route engine mastership state (master or backup). | keyword |  |  |
-| juniper.junos.route_engine.memory.buffer_utilization | Memory buffer utilization percentage. | float | percent | gauge |
-| juniper.junos.route_engine.memory.total | Total memory in bytes. | long | byte | gauge |
-| juniper.junos.route_engine.model | Route engine model. | keyword |  |  |
-| juniper.junos.route_engine.slot | Route engine slot number. | keyword |  |  |
-| juniper.junos.route_engine.start_time | Route engine start time. | date |  |  |
-| juniper.junos.route_engine.status | Route engine status. | keyword |  |  |
-| juniper.junos.route_engine.temperature.cpu | CPU temperature in Celsius. | float |  | gauge |
-| juniper.junos.route_engine.temperature.routing_engine | Route engine temperature in Celsius. | float |  | gauge |
-| juniper.junos.route_engine.uptime | Route engine uptime in seconds. | long | s | gauge |
-| system.cpu.utilization | CPU utilization as a fraction from 0 to 1, mapped from 1 minus cpu.idle divided by 100. | float |  | gauge |
-| system.memory.utilization | Memory utilization as a fraction from 0 to 1, mapped from memory.buffer_utilization divided by 100. | float |  | gauge |
+| host.uptime | Device uptime in seconds. | long |  | gauge |
+| juniper.junos.route_engine.cpu.background | Percentage of CPU time spent on background (nice) processes. | float | percent | gauge |
+| juniper.junos.route_engine.cpu.idle | Percentage of CPU time spent idle with no pending work. | float | percent | gauge |
+| juniper.junos.route_engine.cpu.interrupt | Percentage of CPU time spent servicing hardware interrupts. | float | percent | gauge |
+| juniper.junos.route_engine.cpu.kernel | Percentage of CPU time spent in kernel space. | float | percent | gauge |
+| juniper.junos.route_engine.cpu.user | Percentage of CPU time spent executing user-space processes. | float | percent | gauge |
+| juniper.junos.route_engine.last_reboot_reason | Reported reason for the most recent route engine reboot. | keyword |  |  |
+| juniper.junos.route_engine.load_average.fifteen_minute | System load average over the last 15 minutes. | float |  | gauge |
+| juniper.junos.route_engine.load_average.five_minute | System load average over the last 5 minutes. | float |  | gauge |
+| juniper.junos.route_engine.load_average.one_minute | System load average over the last 1 minute. | float |  | gauge |
+| juniper.junos.route_engine.mastership_state | Redundancy role of the route engine, either master or backup. | keyword |  |  |
+| juniper.junos.route_engine.memory.buffer_utilization | Percentage of route engine memory currently in use by buffers and caches. | float | percent | gauge |
+| juniper.junos.route_engine.memory.total | Total installed memory available to the route engine in bytes. | long | byte | gauge |
+| juniper.junos.route_engine.model | Route engine hardware model string. Used as a TSDB dimension. | keyword |  |  |
+| juniper.junos.route_engine.slot | Route engine slot identifier. Used as a TSDB dimension. | keyword |  |  |
+| juniper.junos.route_engine.start_time | Timestamp of the route engine's most recent start, run. | date |  |  |
+| juniper.junos.route_engine.status | Operational status of the route engine (for example OK, Testing, Failed). | keyword |  |  |
+| juniper.junos.route_engine.temperature.cpu | Current CPU die temperature in degrees Celsius. | float |  | gauge |
+| juniper.junos.route_engine.temperature.routing_engine | Current route engine board temperature in degrees Celsius. | float |  | gauge |
+| juniper.junos.route_engine.uptime | Time elapsed because the route engine last booted, in seconds. | long | s | gauge |
+| observer.product | Observer product name. | keyword |  |  |
+| observer.type | Observer type such as router, switch, or firewall. | keyword |  |  |
+| observer.vendor | Observer vendor name. | keyword |  |  |
+| system.cpu.utilization | CPU utilization as a fraction from 0 to 1, derived from (1 - cpu.idle / 100). | float |  | gauge |
+| system.memory.utilization | Memory utilization as a fraction from 0 to 1, derived from memory.buffer_utilization / 100. | float |  | gauge |
 
 
 ### Interfaces
@@ -116,13 +132,7 @@ An example event for `interfaces` looks as following:
 
 ```json
 {
-    "system": {
-        "network": {
-            "io": 0
-        }
-    },
     "event": {
-        "ingested": "2026-03-10T08:15:55.668245718Z",
         "dataset": "juniper_junos_metrics.interfaces",
         "kind": "metric",
         "module": "juniper_junos_metrics"
@@ -130,31 +140,41 @@ An example event for `interfaces` looks as following:
     "juniper": {
         "junos": {
             "interfaces": {
-                "link_type": "Full-Duplex",
-                "mac_address": "bc:24:11:c4:0f:18",
-                "snmp_index": 1,
-                "name": "fxp0",
                 "admin_status": "up",
-                "type": "Ethernet",
-                "oper_status": "up",
-                "speed": "10Gbps",
+                "link_type": "Full-Duplex",
+                "mac_address": "52:54:00:12:bd:fe",
                 "mtu": 1514,
+                "name": "em1",
+                "oper_status": "up",
+                "snmp_index": 23,
+                "speed": "10Gbps",
                 "traffic": {
-                    "output": {
-                        "packets": 379
-                    },
                     "input": {
-                        "packets": 140
+                        "packets": 90573
+                    },
+                    "output": {
+                        "packets": 123407
                     }
-                }
+                },
+                "type": "Ethernet"
             }
         }
     },
-    "@timestamp": "2026-03-10T08:00:00.000Z",
+    "observer": {
+        "product": "JunOS",
+        "type": "router",
+        "vendor": "Juniper"
+    },
     "data_stream": {
         "type": "metrics",
         "dataset": "juniper_junos_metrics.interfaces",
         "namespace": "default"
+    },
+    "ecs": {
+        "version": "8.0.0"
+    },
+    "input": {
+        "type": "cel"
     }
 }
 ```
@@ -176,31 +196,31 @@ Refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ec
 | event.dataset | Event dataset. | constant_keyword |  |  |
 | event.kind | The kind of event. | keyword |  |  |
 | event.module | Event module. | constant_keyword |  |  |
-| juniper.junos.interfaces.admin_status | Administrative status of the interface. | keyword |  |  |
-| juniper.junos.interfaces.description | Interface description. | keyword |  |  |
-| juniper.junos.interfaces.errors.input | Total input errors on the interface. | long |  | counter |
-| juniper.junos.interfaces.errors.input_drops | Total input drops on the interface. | long |  | counter |
-| juniper.junos.interfaces.errors.output | Total output errors on the interface. | long |  | counter |
-| juniper.junos.interfaces.errors.output_drops | Total output drops on the interface. | long |  | counter |
-| juniper.junos.interfaces.link_type | Link type (for example, Full-Duplex). | keyword |  |  |
-| juniper.junos.interfaces.mac_address | MAC address of the interface. | keyword |  |  |
-| juniper.junos.interfaces.mtu | Maximum transmission unit in bytes. | long | byte | gauge |
-| juniper.junos.interfaces.name | Interface name (for example, ge-0/0/0). | keyword |  |  |
-| juniper.junos.interfaces.oper_status | Operational status of the interface. | keyword |  |  |
-| juniper.junos.interfaces.snmp_index | SNMP interface index. | long |  | gauge |
-| juniper.junos.interfaces.speed | Interface speed string. | keyword |  |  |
-| juniper.junos.interfaces.traffic.input.bps | Input rate in bits per second. | long |  | gauge |
-| juniper.junos.interfaces.traffic.input.bytes | Total bytes received on the interface. | long | byte | counter |
-| juniper.junos.interfaces.traffic.input.packets | Total packets received on the interface. | long |  | counter |
-| juniper.junos.interfaces.traffic.input.pps | Input rate in packets per second. | long |  | gauge |
-| juniper.junos.interfaces.traffic.output.bps | Output rate in bits per second. | long |  | gauge |
-| juniper.junos.interfaces.traffic.output.bytes | Total bytes transmitted on the interface. | long | byte | counter |
-| juniper.junos.interfaces.traffic.output.packets | Total packets transmitted on the interface. | long |  | counter |
-| juniper.junos.interfaces.traffic.output.pps | Output rate in packets per second. | long |  | gauge |
-| juniper.junos.interfaces.type | Interface type (for example, Ethernet). | keyword |  |  |
-| system.network.errors | Network errors, split by direction. | long |  | counter |
-| system.network.io | Network I/O in bytes, split by network.io.direction attribute. | long | byte | counter |
-| system.network.packet.dropped | Dropped packets, split by direction. | long |  | counter |
+| juniper.junos.interfaces.admin_status | Administrative status of the interface (up or down), reflecting the configured state. | keyword |  |  |
+| juniper.junos.interfaces.description | Operator-configured description string for the interface. | keyword |  |  |
+| juniper.junos.interfaces.errors.input | Cumulative number of inbound packets that contained errors (for example CRC, framing). | long |  | counter |
+| juniper.junos.interfaces.errors.input_drops | Cumulative number of inbound packets dropped due to resource constraints or policy. | long |  | counter |
+| juniper.junos.interfaces.errors.output | Cumulative number of outbound packets that failed to transmit due to errors. | long |  | counter |
+| juniper.junos.interfaces.errors.output_drops | Cumulative number of outbound packets dropped due to queue overflow or policy. | long |  | counter |
+| juniper.junos.interfaces.link_type | Physical link mode (for example Full-Duplex, Half-Duplex). | keyword |  |  |
+| juniper.junos.interfaces.mac_address | Hardware MAC address assigned to the interface. | keyword |  |  |
+| juniper.junos.interfaces.mtu | Maximum transmission unit size configured on the interface, in bytes. | long | byte | gauge |
+| juniper.junos.interfaces.name | Interface name (for example ge-0/0/0, ae0, lo0). Used as a TSDB dimension. | keyword |  |  |
+| juniper.junos.interfaces.oper_status | Operational status of the interface (up or down), reflecting the actual link state. | keyword |  |  |
+| juniper.junos.interfaces.snmp_index | SNMP ifIndex value assigned to this interface for SNMP polling. | long |  | gauge |
+| juniper.junos.interfaces.speed | Negotiated or configured interface speed (for example 1000mbps, 10Gbps, Auto). | keyword |  |  |
+| juniper.junos.interfaces.traffic.input.bps | Current inbound traffic rate in bits per second. | long |  | gauge |
+| juniper.junos.interfaces.traffic.input.bytes | Cumulative number of bytes received on the interface. | long | byte | counter |
+| juniper.junos.interfaces.traffic.input.packets | Cumulative number of packets received on the interface. | long |  | counter |
+| juniper.junos.interfaces.traffic.input.pps | Current inbound traffic rate in packets per second. | long |  | gauge |
+| juniper.junos.interfaces.traffic.output.bps | Current outbound traffic rate in bits per second. | long |  | gauge |
+| juniper.junos.interfaces.traffic.output.bytes | Cumulative number of bytes transmitted on the interface. | long | byte | counter |
+| juniper.junos.interfaces.traffic.output.packets | Cumulative number of packets transmitted on the interface. | long |  | counter |
+| juniper.junos.interfaces.traffic.output.pps | Current outbound traffic rate in packets per second. | long |  | gauge |
+| juniper.junos.interfaces.type | Interface media type (for example Ethernet, SONET, Loopback). | keyword |  |  |
+| observer.product | Observer product name. | keyword |  |  |
+| observer.type | Observer type such as router, switch, or firewall. | keyword |  |  |
+| observer.vendor | Observer vendor name. | keyword |  |  |
 
 
 ## Setup

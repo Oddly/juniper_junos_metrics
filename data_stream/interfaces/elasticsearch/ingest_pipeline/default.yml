@@ -2,10 +2,6 @@
 description: Pipeline for JunOS interface metrics.
 processors:
   - set:
-      tag: set_event_ingested
-      field: event.ingested
-      value: "{{_ingest.timestamp}}"
-  - set:
       tag: set_event_kind
       field: event.kind
       value: metric
@@ -17,6 +13,18 @@ processors:
       tag: set_event_dataset
       field: event.dataset
       value: juniper_junos_metrics.interfaces
+  - set:
+      tag: set_observer_vendor
+      field: observer.vendor
+      value: Juniper
+  - set:
+      tag: set_observer_product
+      field: observer.product
+      value: JunOS
+  - set:
+      tag: set_observer_type
+      field: observer.type
+      value: router
 
   # Parse JSON from message
   - json:
@@ -170,35 +178,6 @@ processors:
           if (oel.containsKey('output-drops')) { try { errors.put('output_drops', Long.parseLong(oel.get('output-drops').toString().trim())); } catch(Exception e) {} }
         }
         if (!errors.isEmpty()) ctx.juniper.junos.interfaces.errors = errors;
-
-  # OTel-aligned network metrics
-  - script:
-      tag: script_compute_otel_network_fields
-      lang: painless
-      source: |
-        def traffic = ctx.juniper?.junos?.interfaces?.traffic;
-        def errors = ctx.juniper?.junos?.interfaces?.errors;
-        if (traffic == null && errors == null) return;
-
-        if (ctx.system == null) ctx.system = new HashMap();
-        def net = new HashMap();
-
-        if (traffic != null) {
-          long inBytes = traffic.input?.bytes != null ? traffic.input.bytes : 0L;
-          long outBytes = traffic.output?.bytes != null ? traffic.output.bytes : 0L;
-          net.io = inBytes + outBytes;
-        }
-        if (errors != null) {
-          long inErr = errors.input != null ? errors.input : 0L;
-          long outErr = errors.output != null ? errors.output : 0L;
-          net.errors = inErr + outErr;
-          long inDrops = errors.input_drops != null ? errors.input_drops : 0L;
-          long outDrops = errors.output_drops != null ? errors.output_drops : 0L;
-          def pkt = new HashMap();
-          pkt.dropped = inDrops + outDrops;
-          net.packet = pkt;
-        }
-        ctx.system.network = net;
 
   # Clean up temporary fields
   - remove:

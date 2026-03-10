@@ -4,37 +4,28 @@
     - name: filesystem_name
       type: keyword
       dimension: true
-      description: Filesystem device name.
+      description: Filesystem device path (for example /dev/gpt/junos). Used as a TSDB dimension.
     - name: mounted_on
       type: keyword
       dimension: true
-      description: Mount point.
+      description: Directory where the filesystem is mounted (for example /junos, /var). Used as a TSDB dimension.
     - name: total_bytes
       type: long
       metric_type: gauge
       unit: byte
-      description: Total filesystem size in bytes.
+      description: Total capacity of the filesystem in bytes.
     - name: used_bytes
       type: long
       metric_type: gauge
       unit: byte
-      description: Used filesystem size in bytes.
+      description: Number of bytes currently consumed on the filesystem.
     - name: available_bytes
       type: long
       metric_type: gauge
       unit: byte
-      description: Available filesystem size in bytes.
+      description: Number of bytes available for use on the filesystem.
     - name: used_percent
       type: float
       metric_type: gauge
       unit: percent
-      description: Filesystem usage percentage.
-- name: system.filesystem.usage
-  type: long
-  metric_type: gauge
-  unit: byte
-  description: Filesystem used bytes, mapped from juniper.junos.storage.used_bytes.
-- name: system.filesystem.utilization
-  type: float
-  metric_type: gauge
-  description: Filesystem utilization as a fraction from 0 to 1, mapped from used_percent divided by 100.
+      description: Percentage of filesystem capacity currently in use.

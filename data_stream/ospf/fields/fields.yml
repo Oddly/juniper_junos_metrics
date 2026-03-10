@@ -4,33 +4,33 @@
     - name: instance_name
       type: keyword
       dimension: true
-      description: OSPF instance name.
+      description: Name of the OSPF routing instance. Used as a TSDB dimension.
     - name: router_id
       type: keyword
       dimension: true
-      description: OSPF router ID.
+      description: OSPF router ID in dotted-decimal notation. Used as a TSDB dimension.
     - name: area
       type: group
       fields:
         - name: id
           type: keyword
           dimension: true
-          description: OSPF area ID (e.g. 0.0.0.0).
+          description: OSPF area identifier in dotted-decimal notation (for example 0.0.0.0 for backbone). Used as a TSDB dimension.
         - name: stub_type
           type: keyword
-          description: OSPF area stub type.
+          description: Area stub configuration type (for example Not Stub, Stub, NSSA).
         - name: authentication_type
           type: keyword
-          description: OSPF area authentication type.
+          description: Authentication method configured for the area (for example None, MD5, Simple).
         - name: abr_count
           type: long
           metric_type: gauge
-          description: Number of area border routers in the area.
+          description: Number of Area Border Routers (ABRs) detected in this OSPF area.
         - name: asbr_count
           type: long
           metric_type: gauge
-          description: Number of AS boundary routers in the area.
+          description: Number of Autonomous System Boundary Routers (ASBRs) detected in this OSPF area.
         - name: neighbor_up_count
           type: long
           metric_type: gauge
-          description: Number of OSPF neighbors that are up.
+          description: Number of OSPF neighbors in Full adjacency state within this area.

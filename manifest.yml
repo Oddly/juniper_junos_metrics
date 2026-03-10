@@ -25,10 +25,17 @@ policy_templates:
       - name: host
         type: text
         title: Device Host
-        description: JunOS device hostname or IP with port (for example, https://192.168.1.1:3443)
+        description: "JunOS device hostname or IP with optional port (for example, 192.168.1.1:3443)"
         required: true
         show_user: true
-        default: "https://192.168.1.1:3443"
+        default: "192.168.1.1:3443"
+      - name: use_https
+        type: bool
+        title: Use HTTPS
+        description: Connect using HTTPS instead of HTTP.
+        required: false
+        show_user: true
+        default: true
       - name: username
         type: text
         title: Username

@@ -1,0 +1,118 @@
+{
+    "expected": [
+        {
+            "event": {
+                "dataset": "juniper_junos_metrics.interfaces",
+                "kind": "metric",
+                "module": "juniper_junos_metrics"
+            },
+            "juniper": {
+                "junos": {
+                    "interfaces": {
+                        "admin_status": "up",
+                        "link_type": "Full-Duplex",
+                        "mac_address": "52:54:00:12:bd:fe",
+                        "mtu": 1514,
+                        "name": "em1",
+                        "oper_status": "up",
+                        "snmp_index": 23,
+                        "speed": "10Gbps",
+                        "traffic": {
+                            "input": {
+                                "packets": 90573
+                            },
+                            "output": {
+                                "packets": 123407
+                            }
+                        },
+                        "type": "Ethernet"
+                    }
+                }
+            },
+            "observer": {
+                "product": "JunOS",
+                "type": "router",
+                "vendor": "Juniper"
+            }
+        },
+        {
+            "event": {
+                "dataset": "juniper_junos_metrics.interfaces",
+                "kind": "metric",
+                "module": "juniper_junos_metrics"
+            },
+            "juniper": {
+                "junos": {
+                    "interfaces": {
+                        "admin_status": "up",
+                        "name": "lo0",
+                        "oper_status": "up",
+                        "snmp_index": 6,
+                        "traffic": {
+                            "input": {
+                                "packets": 19386
+                            },
+                            "output": {
+                                "packets": 19386
+                            }
+                        },
+                        "type": "Loopback"
+                    }
+                }
+            },
+            "observer": {
+                "product": "JunOS",
+                "type": "router",
+                "vendor": "Juniper"
+            }
+        },
+        {
+            "event": {
+                "dataset": "juniper_junos_metrics.interfaces",
+                "kind": "metric",
+                "module": "juniper_junos_metrics"
+            },
+            "juniper": {
+                "junos": {
+                    "interfaces": {
+                        "admin_status": "up",
+                        "description": "Uplink to spine-01",
+                        "errors": {
+                            "input": 5,
+                            "input_drops": 12,
+                            "output": 2,
+                            "output_drops": 8
+                        },
+                        "link_type": "Full-Duplex",
+                        "mac_address": "00:05:86:71:62:00",
+                        "mtu": 9192,
+                        "name": "ge-0/0/0",
+                        "oper_status": "up",
+                        "snmp_index": 512,
+                        "speed": "1000mbps",
+                        "traffic": {
+                            "input": {
+                                "bps": 524288,
+                                "bytes": 1234567890,
+                                "packets": 12345678,
+                                "pps": 1500
+                            },
+                            "output": {
+                                "bps": 1048576,
+                                "bytes": 9876543210,
+                                "packets": 98765432,
+                                "pps": 3000
+                            }
+                        },
+                        "type": "Ethernet"
+                    }
+                }
+            },
+            "observer": {
+                "product": "JunOS",
+                "type": "router",
+                "vendor": "Juniper"
+            }
+        }
+    ]
+}

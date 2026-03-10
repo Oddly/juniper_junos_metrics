@@ -7,3 +7,12 @@
 - name: event.kind
   type: keyword
   description: The kind of event.
+- name: observer.vendor
+  type: keyword
+  description: Observer vendor name.
+- name: observer.product
+  type: keyword
+  description: Observer product name.
+- name: observer.type
+  type: keyword
+  description: Observer type such as router, switch, or firewall.

@@ -4,43 +4,43 @@
     - name: group_count
       type: long
       metric_type: gauge
-      description: Number of BGP groups configured.
+      description: Total number of BGP peer groups configured on the router.
     - name: peer_count
       type: long
       metric_type: gauge
-      description: Total number of BGP peers.
+      description: Total number of configured BGP peers across all groups.
     - name: down_peer_count
       type: long
       metric_type: gauge
-      description: Number of BGP peers that are down.
+      description: Number of BGP peers not in the Established state.
     - name: peer
       type: group
       fields:
         - name: address
           type: keyword
           dimension: true
-          description: BGP peer IP address.
+          description: IP address of the BGP peer. Used as a TSDB dimension.
         - name: as
           type: long
           dimension: true
-          description: BGP peer autonomous system number.
+          description: Autonomous system number of the remote BGP peer. Used as a TSDB dimension.
         - name: state
           type: keyword
-          description: BGP peer state (Established, Active, Connect, etc.).
+          description: Current BGP FSM state of the peer (for example Established, Active, Connect, OpenSent).
         - name: input_messages
           type: long
           metric_type: counter
-          description: Number of messages received from peer.
+          description: Cumulative number of BGP messages received from this peer.
         - name: output_messages
           type: long
           metric_type: counter
-          description: Number of messages sent to peer.
+          description: Cumulative number of BGP messages sent to this peer.
         - name: flap_count
           type: long
           metric_type: counter
-          description: Number of times peer has flapped.
+          description: Number of times this peer session has transitioned away from Established state.
         - name: elapsed_time
           type: long
           metric_type: gauge
           unit: s
-          description: Time since last state change in seconds.
+          description: Time elapsed since the last BGP state change for this peer, in seconds.

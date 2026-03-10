@@ -1,0 +1,54 @@
+{
+    "expected": [
+        {
+            "event": {
+                "dataset": "juniper_junos_metrics.routing_table",
+                "kind": "metric",
+                "module": "juniper_junos_metrics"
+            },
+            "juniper": {
+                "junos": {
+                    "routing_table": {
+                        "active_route_count": 5,
+                        "destination_count": 5,
+                        "hidden_route_count": 0,
+                        "holddown_route_count": 0,
+                        "router_id": "172.31.0.120",
+                        "table_name": "inet.0",
+                        "total_route_count": 5
+                    }
+                }
+            },
+            "observer": {
+                "product": "JunOS",
+                "type": "router",
+                "vendor": "Juniper"
+            }
+        },
+        {
+            "event": {
+                "dataset": "juniper_junos_metrics.routing_table",
+                "kind": "metric",
+                "module": "juniper_junos_metrics"
+            },
+            "juniper": {
+                "junos": {
+                    "routing_table": {
+                        "active_route_count": 2,
+                        "destination_count": 2,
+                        "hidden_route_count": 0,
+                        "holddown_route_count": 0,
+                        "router_id": "172.31.0.120",
+                        "table_name": "inet6.0",
+                        "total_route_count": 2
+                    }
+                }
+            },
+            "observer": {
+                "product": "JunOS",
+                "type": "router",
+                "vendor": "Juniper"
+            }
+        }
+    ]
+}

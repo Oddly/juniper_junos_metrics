@@ -1,0 +1,13 @@
+{
+  "events": [
+    {
+      "message": "{\"name\": [{\"data\": \"Routing Engine 0\"}], \"class\": [{\"data\": \"Temp\"}], \"status\": [{\"data\": \"OK\"}], \"temperature\": [{\"data\": \"45 degrees C / 113 degrees F\", \"attributes\": {\"celsius\": \"45\"}}], \"comment\": [{\"data\": \"Testing only\"}]}"
+    },
+    {
+      "message": "{\"name\": [{\"data\": \"Fan Tray 0\"}], \"class\": [{\"data\": \"Fans\"}], \"status\": [{\"data\": \"OK\"}]}"
+    },
+    {
+      "message": "{\"name\": [{\"data\": \"PSU 0\"}], \"class\": [{\"data\": \"Power\"}], \"status\": [{\"data\": \"OK\"}], \"comment\": [{\"data\": \"1200W, 85% load\"}]}"
+    }
+  ]
+}

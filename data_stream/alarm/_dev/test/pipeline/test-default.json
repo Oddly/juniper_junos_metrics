@@ -1,0 +1,7 @@
+{
+  "events": [
+    {
+      "message": "{\"alarm-time\": [{\"data\": \"2026-03-10 08:02:45 UTC\", \"attributes\": {\"junos:seconds\": \"1773129765\"}}], \"alarm-class\": [{\"data\": \"Major\"}], \"alarm-description\": [{\"data\": \"FPC 0 Hard errors\"}], \"alarm-short-description\": [{\"data\": \"FPC 0 Hard errors\"}], \"alarm-type\": [{\"data\": \"Chassis\"}]}"
+    }
+  ]
+}

@@ -1,5 +1,17 @@
 - version: "0.1.0"
   changes:
-    - description: Initial release
+    - description: Initial release with 8 data streams collecting metrics from Juniper JunOS devices via REST API.
+      type: enhancement
+      link: https://github.com/elastic/integrations/pull/1
+    - description: Add ECS observer fields (observer.vendor, observer.product, observer.type) to all data streams.
+      type: enhancement
+      link: https://github.com/elastic/integrations/pull/1
+    - description: Add host.uptime ECS field to route_engine data stream.
+      type: enhancement
+      link: https://github.com/elastic/integrations/pull/1
+    - description: Add debug events for error visibility when API requests fail or return unexpected data.
+      type: enhancement
+      link: https://github.com/elastic/integrations/pull/1
+    - description: Add pipeline tests with real device API response fixtures for all 8 data streams.
       type: enhancement
       link: https://github.com/elastic/integrations/pull/1

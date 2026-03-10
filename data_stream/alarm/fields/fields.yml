@@ -3,16 +3,16 @@
   fields:
     - name: time
       type: date
-      description: Time the alarm was raised.
+      description: Timestamp when the alarm was raised by Junos.
     - name: class
       type: keyword
-      description: Alarm class (Major, Minor, etc.).
+      description: Severity class of the alarm (for example Major, Minor).
     - name: type
       type: keyword
-      description: Alarm type (Interface, Chassis, etc.).
+      description: Subsystem that generated the alarm (for example Interface, Chassis, Configuration).
     - name: description
       type: keyword
-      description: Full alarm description.
+      description: Full human-readable alarm message as reported by Junos.
     - name: short_description
       type: keyword
-      description: Short alarm description.
+      description: Abbreviated alarm message suitable for display in summary views.

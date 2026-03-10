@@ -1,0 +1,52 @@
+{
+    "expected": [
+        {
+            "event": {
+                "dataset": "juniper_junos_metrics.storage",
+                "kind": "metric",
+                "module": "juniper_junos_metrics"
+            },
+            "juniper": {
+                "junos": {
+                    "storage": {
+                        "available_bytes": 35166560256,
+                        "filesystem_name": "/dev/gpt/junos",
+                        "mounted_on": "/.mount",
+                        "total_bytes": 42268352512,
+                        "used_bytes": 3720331264,
+                        "used_percent": 10.0
+                    }
+                }
+            },
+            "observer": {
+                "product": "JunOS",
+                "type": "router",
+                "vendor": "Juniper"
+            }
+        },
+        {
+            "event": {
+                "dataset": "juniper_junos_metrics.storage",
+                "kind": "metric",
+                "module": "juniper_junos_metrics"
+            },
+            "juniper": {
+                "junos": {
+                    "storage": {
+                        "available_bytes": 6536568832,
+                        "filesystem_name": "tmpfs",
+                        "mounted_on": "/.mount/tmp",
+                        "total_bytes": 6536593408,
+                        "used_bytes": 24576,
+                        "used_percent": 0.0
+                    }
+                }
+            },
+            "observer": {
+                "product": "JunOS",
+                "type": "router",
+                "vendor": "Juniper"
+            }
+        }
+    ]
+}

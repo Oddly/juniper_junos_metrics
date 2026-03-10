@@ -2,10 +2,6 @@
 description: Pipeline for JunOS alarm events.
 processors:
   - set:
-      tag: set_event_ingested
-      field: event.ingested
-      value: "{{_ingest.timestamp}}"
-  - set:
       tag: set_event_kind
       field: event.kind
       value: event
@@ -17,6 +13,18 @@ processors:
       tag: set_event_dataset
       field: event.dataset
       value: juniper_junos_metrics.alarm
+  - set:
+      tag: set_observer_vendor
+      field: observer.vendor
+      value: Juniper
+  - set:
+      tag: set_observer_product
+      field: observer.product
+      value: JunOS
+  - set:
+      tag: set_observer_type
+      field: observer.type
+      value: router
 
   # Parse JSON from message
   - json:

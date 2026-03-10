@@ -1,32 +1,41 @@
 {
-    "event": {
-        "ingested": "2026-03-10T08:15:56.209159626Z",
-        "dataset": "juniper_junos_metrics.bgp",
-        "kind": "metric",
-        "module": "juniper_junos_metrics"
-    },
-    "juniper": {
-        "junos": {
-            "bgp": {
-                "peer_count": 1,
-                "down_peer_count": 1,
-                "group_count": 1,
-                "peer": {
-                    "as": 65120,
-                    "input_messages": 0,
-                    "address": "172.31.0.1",
-                    "output_messages": 0,
-                    "flap_count": 0,
-                    "elapsed_time": 26,
-                    "state": "Active"
-                }
-            }
-        }
-    },
-    "@timestamp": "2026-03-10T08:00:00.000Z",
-    "data_stream": {
-        "type": "metrics",
-        "dataset": "juniper_junos_metrics.bgp",
-        "namespace": "default"
+  "event": {
+    "dataset": "juniper_junos_metrics.bgp",
+    "kind": "metric",
+    "module": "juniper_junos_metrics"
+  },
+  "juniper": {
+    "junos": {
+      "bgp": {
+        "down_peer_count": 1,
+        "group_count": 1,
+        "peer": {
+          "address": "172.31.0.1",
+          "as": 65120,
+          "elapsed_time": 10281,
+          "flap_count": 0,
+          "input_messages": 0,
+          "output_messages": 0,
+          "state": "Active"
+        },
+        "peer_count": 1
+      }
     }
+  },
+  "observer": {
+    "product": "JunOS",
+    "type": "router",
+    "vendor": "Juniper"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "juniper_junos_metrics.bgp",
+    "namespace": "default"
+  },
+  "ecs": {
+    "version": "8.0.0"
+  },
+  "input": {
+    "type": "cel"
+  }
 }

@@ -1,0 +1,112 @@
+{
+    "expected": [
+        {
+            "event": {
+                "dataset": "juniper_junos_metrics.route_engine",
+                "kind": "metric",
+                "module": "juniper_junos_metrics"
+            },
+            "host": {
+                "uptime": 11690
+            },
+            "juniper": {
+                "junos": {
+                    "route_engine": {
+                        "cpu": {
+                            "background": 0.0,
+                            "idle": 89.0,
+                            "interrupt": 0.0,
+                            "kernel": 5.0,
+                            "user": 6.0
+                        },
+                        "last_reboot_reason": "Router rebooted after a normal shutdown.",
+                        "load_average": {
+                            "fifteen_minute": 0.58,
+                            "five_minute": 0.47,
+                            "one_minute": 0.49
+                        },
+                        "mastership_state": "master",
+                        "memory": {
+                            "buffer_utilization": 19.0,
+                            "total": 1920991232
+                        },
+                        "model": "RE-VMX",
+                        "slot": "0",
+                        "start_time": "2026-03-10T07:40:35Z",
+                        "status": "OK",
+                        "uptime": 11690
+                    }
+                }
+            },
+            "observer": {
+                "product": "JunOS",
+                "type": "router",
+                "vendor": "Juniper"
+            },
+            "system": {
+                "cpu": {
+                    "utilization": 0.11
+                },
+                "memory": {
+                    "utilization": 0.19
+                }
+            }
+        },
+        {
+            "event": {
+                "dataset": "juniper_junos_metrics.route_engine",
+                "kind": "metric",
+                "module": "juniper_junos_metrics"
+            },
+            "host": {
+                "uptime": 4672835
+            },
+            "juniper": {
+                "junos": {
+                    "route_engine": {
+                        "cpu": {
+                            "background": 1.0,
+                            "idle": 90.0,
+                            "interrupt": 1.0,
+                            "kernel": 3.0,
+                            "user": 5.0
+                        },
+                        "last_reboot_reason": "0x200:normal shutdown",
+                        "load_average": {
+                            "fifteen_minute": 0.65,
+                            "five_minute": 0.87,
+                            "one_minute": 1.23
+                        },
+                        "mastership_state": "backup",
+                        "memory": {
+                            "buffer_utilization": 35.0,
+                            "total": 4294967296
+                        },
+                        "model": "RE-S-1800X4",
+                        "slot": "1",
+                        "start_time": "2025-01-15T12:00:00Z",
+                        "status": "OK",
+                        "temperature": {
+                            "cpu": 52.0,
+                            "routing_engine": 45.0
+                        },
+                        "uptime": 4672835
+                    }
+                }
+            },
+            "observer": {
+                "product": "JunOS",
+                "type": "router",
+                "vendor": "Juniper"
+            },
+            "system": {
+                "cpu": {
+                    "utilization": 0.1
+                },
+                "memory": {
+                    "utilization": 0.35
+                }
+            }
+        }
+    ]
+}

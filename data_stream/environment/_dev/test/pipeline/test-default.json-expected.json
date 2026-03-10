@@ -1,0 +1,70 @@
+{
+    "expected": [
+        {
+            "event": {
+                "dataset": "juniper_junos_metrics.environment",
+                "kind": "metric",
+                "module": "juniper_junos_metrics"
+            },
+            "juniper": {
+                "junos": {
+                    "environment": {
+                        "class": "Temp",
+                        "comment": "Testing only",
+                        "name": "Routing Engine 0",
+                        "status": "OK",
+                        "temperature": 45.0
+                    }
+                }
+            },
+            "observer": {
+                "product": "JunOS",
+                "type": "router",
+                "vendor": "Juniper"
+            }
+        },
+        {
+            "event": {
+                "dataset": "juniper_junos_metrics.environment",
+                "kind": "metric",
+                "module": "juniper_junos_metrics"
+            },
+            "juniper": {
+                "junos": {
+                    "environment": {
+                        "class": "Fans",
+                        "name": "Fan Tray 0",
+                        "status": "OK"
+                    }
+                }
+            },
+            "observer": {
+                "product": "JunOS",
+                "type": "router",
+                "vendor": "Juniper"
+            }
+        },
+        {
+            "event": {
+                "dataset": "juniper_junos_metrics.environment",
+                "kind": "metric",
+                "module": "juniper_junos_metrics"
+            },
+            "juniper": {
+                "junos": {
+                    "environment": {
+                        "class": "Power",
+                        "comment": "1200W, 85% load",
+                        "name": "PSU 0",
+                        "status": "OK"
+                    }
+                }
+            },
+            "observer": {
+                "product": "JunOS",
+                "type": "router",
+                "vendor": "Juniper"
+            }
+        }
+    ]
+}

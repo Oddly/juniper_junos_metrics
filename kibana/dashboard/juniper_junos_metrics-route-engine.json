@@ -71,17 +71,17 @@
             "name": "panel_memory_over_time:indexpattern-datasource-layer-layer1"
         },
         {
-            "name": "panel_links:link_juniper-junos-overview_dashboard",
+            "name": "panel_links:link_juniper_junos_metrics-overview_dashboard",
             "type": "dashboard",
             "id": "juniper_junos_metrics-overview"
         },
         {
-            "name": "panel_links:link_juniper-junos-route-engine_dashboard",
+            "name": "panel_links:link_juniper_junos_metrics-route-engine_dashboard",
             "type": "dashboard",
             "id": "juniper_junos_metrics-route-engine"
         },
         {
-            "name": "panel_links:link_juniper-junos-interfaces_dashboard",
+            "name": "panel_links:link_juniper_junos_metrics-interfaces_dashboard",
             "type": "dashboard",
             "id": "juniper_junos_metrics-interfaces"
         }

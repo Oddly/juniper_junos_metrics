@@ -1,14 +1,13 @@
-resource.url: {{host}}/rpc/get-interface-information@format=json
-auth:
-  basic:
-    user: {{username}}
-    password: {{password}}
+resource.url: {{#if use_https}}https{{else}}http{{/if}}://{{username}}:{{password}}@{{host}}/rpc/get-interface-information@format=json
 resource:
   ssl:
     verification_mode: {{ssl_verification_mode}}
 resource.timeout: 30s
 state:
   initial: {}
+redact:
+  fields:
+    - resource.url
 program: |
   request("GET", state.url).do_request().as(resp,
     resp.StatusCode == 200 ?
@@ -17,12 +16,13 @@ program: |
         && "physical-interface" in body["interface-information"][0] ?
           {"events": body["interface-information"][0]["physical-interface"].map(iface, {
             "message": iface.encode_json(),
+            "juniper.junos.interfaces.name": "name" in iface && size(iface["name"]) > 0 ? string(iface["name"][0]["data"]) : "unknown",
           })}
         :
-          {"events": []}
+          {"events": [{"message": "debug: body structure mismatch", "juniper.junos.interfaces.name": "debug"}]}
       )
     :
-      {"events": []}
+      {"events": [{"message": "debug: non-200 status " + string(resp.StatusCode), "juniper.junos.interfaces.name": "debug"}]}
   )
 interval: {{period}}
 {{#if tags}}

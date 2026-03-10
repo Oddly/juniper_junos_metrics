@@ -2,10 +2,6 @@
 description: Pipeline for JunOS route engine metrics.
 processors:
   - set:
-      tag: set_event_ingested
-      field: event.ingested
-      value: "{{_ingest.timestamp}}"
-  - set:
       tag: set_event_kind
       field: event.kind
       value: metric
@@ -17,6 +13,18 @@ processors:
       tag: set_event_dataset
       field: event.dataset
       value: juniper_junos_metrics.route_engine
+  - set:
+      tag: set_observer_vendor
+      field: observer.vendor
+      value: Juniper
+  - set:
+      tag: set_observer_product
+      field: observer.product
+      value: JunOS
+  - set:
+      tag: set_observer_type
+      field: observer.type
+      value: router
 
   # Parse JSON from message
   - json:
@@ -171,6 +179,38 @@ processors:
           } catch (Exception e) {}
         }
 
+  # Temperature fields — use celsius attribute if available, fall back to regex
+  - script:
+      tag: script_parse_temperature
+      lang: painless
+      source: |
+        def re = ctx._temp?.re;
+        if (re == null) return;
+        def fields = [['temperature', 'routing_engine'], ['cpu-temperature', 'cpu']];
+        for (def pair : fields) {
+          def key = pair[0];
+          def target = pair[1];
+          def attrs = re.get(key + '_attrs');
+          def val = re.get(key);
+          def celsius = null;
+          if (attrs != null && attrs.containsKey('celsius')) {
+            try { celsius = Double.parseDouble(attrs.get('celsius').toString()); } catch (Exception e) {}
+          }
+          if (celsius == null && val != null) {
+            def m = /(\d+(?:\.\d+)?)\s*degrees\s*C/.matcher(val.toString());
+            if (m.find()) {
+              try { celsius = Double.parseDouble(m.group(1)); } catch (Exception e) {}
+            }
+          }
+          if (celsius != null) {
+            if (ctx.juniper == null) ctx.juniper = new HashMap();
+            if (ctx.juniper.junos == null) ctx.juniper.junos = new HashMap();
+            if (ctx.juniper.junos.route_engine == null) ctx.juniper.junos.route_engine = new HashMap();
+            if (ctx.juniper.junos.route_engine.temperature == null) ctx.juniper.junos.route_engine.temperature = new HashMap();
+            ctx.juniper.junos.route_engine.temperature.put(target, celsius);
+          }
+        }
+
   # Last reboot reason
   - set:
       tag: set_last_reboot_reason
@@ -194,7 +234,14 @@ processors:
           } catch (Exception e) {}
         }
 
-  # OTel-aligned: system.cpu.utilization = (100 - cpu_idle) / 100
+  # ECS: host.uptime = route engine uptime in seconds
+  - set:
+      tag: set_host_uptime
+      if: ctx.juniper?.junos?.route_engine?.uptime != null
+      field: host.uptime
+      copy_from: juniper.junos.route_engine.uptime
+
+  # ECS-aligned: system.cpu.utilization = (100 - cpu_idle) / 100
   - script:
       tag: script_compute_cpu_utilization
       lang: painless

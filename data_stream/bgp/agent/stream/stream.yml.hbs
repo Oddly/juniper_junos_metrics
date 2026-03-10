@@ -1,14 +1,13 @@
-resource.url: {{host}}/rpc/get-bgp-summary-information@format=json
-auth:
-  basic:
-    user: {{username}}
-    password: {{password}}
+resource.url: {{#if use_https}}https{{else}}http{{/if}}://{{username}}:{{password}}@{{host}}/rpc/get-bgp-summary-information@format=json
 resource:
   ssl:
     verification_mode: {{ssl_verification_mode}}
 resource.timeout: 30s
 state:
   initial: {}
+redact:
+  fields:
+    - resource.url
 program: |
   request("GET", state.url).do_request().as(resp,
     resp.StatusCode == 200 ?
@@ -23,13 +22,15 @@ program: |
                 "down-peer-count": info["down-peer-count"],
                 "peer": peer
               }.encode_json(),
+              "juniper.junos.bgp.peer.address": "peer-address" in peer && size(peer["peer-address"]) > 0 ? string(peer["peer-address"][0]["data"]) : "unknown",
+              "juniper.junos.bgp.peer.as": "peer-as" in peer && size(peer["peer-as"]) > 0 ? string(peer["peer-as"][0]["data"]) : "0",
             })}
           )
         :
-          {"events": []}
+          {"events": [{"message": "debug: body structure mismatch", "juniper.junos.bgp.peer.address": "debug", "juniper.junos.bgp.peer.as": "debug"}]}
       )
     :
-      {"events": []}
+      {"events": [{"message": "debug: non-200 status " + string(resp.StatusCode), "juniper.junos.bgp.peer.address": "debug", "juniper.junos.bgp.peer.as": "debug"}]}
   )
 interval: {{period}}
 {{#if tags}}

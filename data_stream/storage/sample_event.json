@@ -1,32 +1,35 @@
 {
-    "system": {
-        "filesystem": {
-            "utilization": 0.1,
-            "usage": 3714990080
-        }
-    },
-    "event": {
-        "ingested": "2026-03-10T08:15:55.847205723Z",
-        "dataset": "juniper_junos_metrics.storage",
-        "kind": "metric",
-        "module": "juniper_junos_metrics"
-    },
-    "juniper": {
-        "junos": {
-            "storage": {
-                "filesystem_name": "/dev/gpt/junos",
-                "available_bytes": 35171901440,
-                "used_bytes": 3714990080,
-                "total_bytes": 42268352512,
-                "used_percent": 10.0,
-                "mounted_on": "/.mount"
-            }
-        }
-    },
-    "@timestamp": "2026-03-10T08:00:00.000Z",
-    "data_stream": {
-        "type": "metrics",
-        "dataset": "juniper_junos_metrics.storage",
-        "namespace": "default"
+  "event": {
+    "dataset": "juniper_junos_metrics.storage",
+    "kind": "metric",
+    "module": "juniper_junos_metrics"
+  },
+  "juniper": {
+    "junos": {
+      "storage": {
+        "available_bytes": 35166560256,
+        "filesystem_name": "/dev/gpt/junos",
+        "mounted_on": "/.mount",
+        "total_bytes": 42268352512,
+        "used_bytes": 3720331264,
+        "used_percent": 10.0
+      }
     }
+  },
+  "observer": {
+    "product": "JunOS",
+    "type": "router",
+    "vendor": "Juniper"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "juniper_junos_metrics.storage",
+    "namespace": "default"
+  },
+  "ecs": {
+    "version": "8.0.0"
+  },
+  "input": {
+    "type": "cel"
+  }
 }

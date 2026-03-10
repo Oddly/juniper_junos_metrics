@@ -1,42 +1,46 @@
 {
-    "system": {
-        "network": {
-            "io": 0
-        }
-    },
-    "event": {
-        "ingested": "2026-03-10T08:15:55.668245718Z",
-        "dataset": "juniper_junos_metrics.interfaces",
-        "kind": "metric",
-        "module": "juniper_junos_metrics"
-    },
-    "juniper": {
-        "junos": {
-            "interfaces": {
-                "link_type": "Full-Duplex",
-                "mac_address": "bc:24:11:c4:0f:18",
-                "snmp_index": 1,
-                "name": "fxp0",
-                "admin_status": "up",
-                "type": "Ethernet",
-                "oper_status": "up",
-                "speed": "10Gbps",
-                "mtu": 1514,
-                "traffic": {
-                    "output": {
-                        "packets": 379
-                    },
-                    "input": {
-                        "packets": 140
-                    }
-                }
-            }
-        }
-    },
-    "@timestamp": "2026-03-10T08:00:00.000Z",
-    "data_stream": {
-        "type": "metrics",
-        "dataset": "juniper_junos_metrics.interfaces",
-        "namespace": "default"
+  "event": {
+    "dataset": "juniper_junos_metrics.interfaces",
+    "kind": "metric",
+    "module": "juniper_junos_metrics"
+  },
+  "juniper": {
+    "junos": {
+      "interfaces": {
+        "admin_status": "up",
+        "link_type": "Full-Duplex",
+        "mac_address": "52:54:00:12:bd:fe",
+        "mtu": 1514,
+        "name": "em1",
+        "oper_status": "up",
+        "snmp_index": 23,
+        "speed": "10Gbps",
+        "traffic": {
+          "input": {
+            "packets": 90573
+          },
+          "output": {
+            "packets": 123407
+          }
+        },
+        "type": "Ethernet"
+      }
     }
+  },
+  "observer": {
+    "product": "JunOS",
+    "type": "router",
+    "vendor": "Juniper"
+  },
+  "data_stream": {
+    "type": "metrics",
+    "dataset": "juniper_junos_metrics.interfaces",
+    "namespace": "default"
+  },
+  "ecs": {
+    "version": "8.0.0"
+  },
+  "input": {
+    "type": "cel"
+  }
 }

@@ -1,14 +1,13 @@
-resource.url: {{host}}/rpc/get-alarm-information@format=json
-auth:
-  basic:
-    user: {{username}}
-    password: {{password}}
+resource.url: {{#if use_https}}https{{else}}http{{/if}}://{{username}}:{{password}}@{{host}}/rpc/get-alarm-information@format=json
 resource:
   ssl:
     verification_mode: {{ssl_verification_mode}}
 resource.timeout: 30s
 state:
   initial: {}
+redact:
+  fields:
+    - resource.url
 program: |
   request("GET", state.url).do_request().as(resp,
     resp.StatusCode == 200 ?

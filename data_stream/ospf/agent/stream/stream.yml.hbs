@@ -1,14 +1,13 @@
-resource.url: {{host}}/rpc/get-ospf-overview-information@format=json
-auth:
-  basic:
-    user: {{username}}
-    password: {{password}}
+resource.url: {{#if use_https}}https{{else}}http{{/if}}://{{username}}:{{password}}@{{host}}/rpc/get-ospf-overview-information@format=json
 resource:
   ssl:
     verification_mode: {{ssl_verification_mode}}
 resource.timeout: 30s
 state:
   initial: {}
+redact:
+  fields:
+    - resource.url
 program: |
   request("GET", state.url).do_request().as(resp,
     resp.StatusCode == 200 ?
@@ -24,12 +23,15 @@ program: |
                   "ospf-router-id": overview["ospf-router-id"],
                   "area": area
                 }.encode_json(),
+                "juniper.junos.ospf.instance_name": "instance-name" in overview && size(overview["instance-name"]) > 0 ? string(overview["instance-name"][0]["data"]) : "unknown",
+                "juniper.junos.ospf.router_id": "ospf-router-id" in overview && size(overview["ospf-router-id"]) > 0 ? string(overview["ospf-router-id"][0]["data"]) : "unknown",
+                "juniper.junos.ospf.area.id": "ospf-area" in area && size(area["ospf-area"]) > 0 ? string(area["ospf-area"][0]["data"]) : "unknown",
               })}
-            : {"events": []}
+            : {"events": [{"message": "debug: body structure mismatch", "juniper.junos.ospf.instance_name": "debug", "juniper.junos.ospf.router_id": "debug", "juniper.junos.ospf.area.id": "debug"}]}
           )
-        : {"events": []}
+        : {"events": [{"message": "debug: body structure mismatch", "juniper.junos.ospf.instance_name": "debug", "juniper.junos.ospf.router_id": "debug", "juniper.junos.ospf.area.id": "debug"}]}
       )
-    : {"events": []}
+    : {"events": [{"message": "debug: non-200 status " + string(resp.StatusCode), "juniper.junos.ospf.instance_name": "debug", "juniper.junos.ospf.router_id": "debug", "juniper.junos.ospf.area.id": "debug"}]}
   )
 interval: {{period}}
 {{#if tags}}

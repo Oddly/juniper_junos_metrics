@@ -1,0 +1,34 @@
+{
+    "expected": [
+        {
+            "event": {
+                "dataset": "juniper_junos_metrics.bgp",
+                "kind": "metric",
+                "module": "juniper_junos_metrics"
+            },
+            "juniper": {
+                "junos": {
+                    "bgp": {
+                        "down_peer_count": 1,
+                        "group_count": 1,
+                        "peer": {
+                            "address": "172.31.0.1",
+                            "as": 65120,
+                            "elapsed_time": 10281,
+                            "flap_count": 0,
+                            "input_messages": 0,
+                            "output_messages": 0,
+                            "state": "Active"
+                        },
+                        "peer_count": 1
+                    }
+                }
+            },
+            "observer": {
+                "product": "JunOS",
+                "type": "router",
+                "vendor": "Juniper"
+            }
+        }
+    ]
+}
