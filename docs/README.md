@@ -112,11 +112,11 @@ Refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ec
 | juniper.junos.route_engine.memory.total | Total installed memory available to the route engine in bytes. | long | byte | gauge |
 | juniper.junos.route_engine.model | Route engine hardware model string. Used as a TSDB dimension. | keyword |  |  |
 | juniper.junos.route_engine.slot | Route engine slot identifier. Used as a TSDB dimension. | keyword |  |  |
-| juniper.junos.route_engine.start_time | Timestamp of the route engine's most recent start, run. | date |  |  |
+| juniper.junos.route_engine.start_time | Timestamp of the route engine's most recent boot. | date |  |  |
 | juniper.junos.route_engine.status | Operational status of the route engine (for example OK, Testing, Failed). | keyword |  |  |
 | juniper.junos.route_engine.temperature.cpu | Current CPU die temperature in degrees Celsius. | float |  | gauge |
 | juniper.junos.route_engine.temperature.routing_engine | Current route engine board temperature in degrees Celsius. | float |  | gauge |
-| juniper.junos.route_engine.uptime | Time elapsed because the route engine last booted, in seconds. | long | s | gauge |
+| juniper.junos.route_engine.uptime | Time elapsed since the route engine last booted, in seconds. | long | s | gauge |
 | observer.product | Observer product name. | keyword |  |  |
 | observer.type | Observer type such as router, switch, or firewall. | keyword |  |  |
 | observer.vendor | Observer vendor name. | keyword |  |  |
@@ -225,9 +225,38 @@ Refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ec
 
 ## Setup
 
-1. Enable the REST API on the JunOS device: `set system services rest https port 3443`.
-2. Create a local user account or use an existing one with at least read-only access.
-3. In Kibana, navigate to **Integrations** and search for "Juniper JunOS Metrics".
-4. Add the integration and configure the device host (for example, `https://192.168.1.1:3443`), username, and password.
-5. Set the SSL verification mode to `none` if the device uses a self-signed certificate, or to `full` if a trusted certificate is installed.
-6. Deploy the policy to an Elastic Agent that has network access to the JunOS device.
+### JunOS device configuration
+
+Create a read-only login class and user with the minimum permissions needed for this integration:
+
+```
+# Create a login class with only view permissions and REST API access
+set system login class elastic-monitor permissions view
+set system login class elastic-monitor permissions view-configuration
+set system login class elastic-monitor allow-commands "show.*"
+set system login class elastic-monitor deny-commands "configure|edit|set|delete|rollback|commit|request|start|restart|clear|file"
+
+# Create the user
+set system login user elastic-agent class elastic-monitor
+set system login user elastic-agent authentication plain-text-password
+# (enter password at prompt)
+
+# Enable the REST API
+set system services rest http port 8080
+# Or for HTTPS:
+# set system services rest https port 3443
+# set system services rest https default-certificate
+
+# Commit
+commit
+```
+
+The `view` permission is sufficient because all 8 RPC endpoints this integration calls (`get-route-engine-information`, `get-interface-information`, `get-bgp-summary-information`, `get-ospf-overview-information`, `get-route-summary-information`, `get-system-storage`, `get-environment-information`, `get-alarm-information`) are read-only `show` equivalents. No `configure`, `edit`, or `request` permissions are needed.
+
+### Elastic Agent configuration
+
+1. In Kibana, navigate to **Integrations** and search for "Juniper JunOS Metrics".
+2. Add the integration and configure the device host (for example, `192.168.1.1:3443`), username, and password.
+3. Enable the **Use HTTPS** toggle if the device serves the REST API over TLS.
+4. Set the SSL verification mode to `none` if the device uses a self-signed certificate, or to `full` if a trusted certificate is installed.
+5. Deploy the policy to an Elastic Agent that has network access to the JunOS device.
