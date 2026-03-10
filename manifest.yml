@@ -53,7 +53,7 @@ policy_templates:
       - name: ssl_verification_mode
         type: text
         title: SSL Verification Mode
-        description: "SSL verification mode: none, certificate, or full"
+        description: "Controls server certificate verification: none (skip verification, for self-signed certs), certificate (verify CA only), full (verify CA and hostname)."
         required: false
         show_user: true
         default: none
