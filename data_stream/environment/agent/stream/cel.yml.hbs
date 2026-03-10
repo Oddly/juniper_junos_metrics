@@ -1,0 +1,29 @@
+resource.url: {{host}}/rpc/get-environment-information@format=json
+auth.basic.user: {{username}}
+auth.basic.password: {{password}}
+resource.ssl.verification_mode: {{ssl_verification_mode}}
+resource.timeout: 30s
+state:
+  initial: {}
+program: |
+  request("GET", state.url).do_request().as(resp,
+    resp.StatusCode == 200 ?
+      bytes(resp.Body).decode_json().as(body,
+        has(body["environment-information"]) && size(body["environment-information"]) > 0
+        && has(body["environment-information"][0]["environment-item"]) ?
+          body["environment-information"][0]["environment-item"].map(item, {
+            "message": item.encode_json(),
+          })
+        :
+          []
+      )
+    :
+      []
+  )
+interval: {{period}}
+{{#if tags}}
+tags:
+{{#each tags as |tag|}}
+  - {{tag}}
+{{/each}}
+{{/if}}

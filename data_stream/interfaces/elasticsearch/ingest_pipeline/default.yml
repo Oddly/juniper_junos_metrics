@@ -1,0 +1,229 @@
+---
+description: Pipeline for JunOS interface metrics.
+processors:
+  - set:
+      tag: set_event_ingested
+      field: event.ingested
+      value: "{{_ingest.timestamp}}"
+  - set:
+      tag: set_event_kind
+      field: event.kind
+      value: metric
+  - set:
+      tag: set_event_module
+      field: event.module
+      value: juniper_junos_metrics
+  - set:
+      tag: set_event_dataset
+      field: event.dataset
+      value: juniper_junos_metrics.interfaces
+
+  # Preserve original message
+  - rename:
+      tag: rename_message_to_event_original
+      field: message
+      target_field: event.original
+      ignore_missing: true
+
+  # Parse JSON from event.original
+  - json:
+      tag: json_parse_event_original
+      field: event.original
+      target_field: _temp.raw
+
+  # Flatten JunOS JSON: unwrap [{"data": "value"}] pattern into simple key-value pairs.
+  # Also handles nested objects like traffic-statistics and error lists.
+  - script:
+      tag: script_flatten_junos_json
+      lang: painless
+      description: Unwrap the JunOS [{"data":"value"}] array pattern into flat fields.
+      source: |
+        def unwrap(Map src) {
+          def flat = new HashMap();
+          for (def entry : src.entrySet()) {
+            def key = entry.getKey();
+            def val = entry.getValue();
+            if (val instanceof List && val.size() > 0) {
+              def first = val.get(0);
+              if (first instanceof Map) {
+                if (first.containsKey('data')) {
+                  def d = first.get('data');
+                  if (d instanceof List && d.size() > 0 && d.get(0) == null) {
+                    continue;
+                  }
+                  flat.put(key, d);
+                } else {
+                  flat.put(key, unwrap(first));
+                }
+                if (first.containsKey('attributes')) {
+                  flat.put(key + '_attrs', first.get('attributes'));
+                }
+              }
+            }
+          }
+          return flat;
+        }
+        ctx._temp.iface = unwrap(ctx._temp.raw);
+
+  # Interface identity fields
+  - set:
+      tag: set_name
+      if: ctx._temp?.iface?.name != null
+      field: juniper.junos.interfaces.name
+      value: "{{_temp.iface.name}}"
+  - set:
+      tag: set_admin_status
+      if: ctx._temp?.iface?.get('admin-status') != null
+      field: juniper.junos.interfaces.admin_status
+      value: "{{_temp.iface.admin-status}}"
+  - set:
+      tag: set_oper_status
+      if: ctx._temp?.iface?.get('oper-status') != null
+      field: juniper.junos.interfaces.oper_status
+      value: "{{_temp.iface.oper-status}}"
+  - set:
+      tag: set_description
+      if: ctx._temp?.iface?.description != null
+      field: juniper.junos.interfaces.description
+      value: "{{_temp.iface.description}}"
+  - set:
+      tag: set_speed
+      if: ctx._temp?.iface?.speed != null
+      field: juniper.junos.interfaces.speed
+      value: "{{_temp.iface.speed}}"
+  - set:
+      tag: set_mac_address
+      if: ctx._temp?.iface?.get('current-physical-address') != null
+      field: juniper.junos.interfaces.mac_address
+      value: "{{_temp.iface.current-physical-address}}"
+  - set:
+      tag: set_if_type
+      if: ctx._temp?.iface?.get('if-type') != null
+      field: juniper.junos.interfaces.type
+      value: "{{_temp.iface.if-type}}"
+  - set:
+      tag: set_link_type
+      if: ctx._temp?.iface?.get('link-type') != null
+      field: juniper.junos.interfaces.link_type
+      value: "{{_temp.iface.link-type}}"
+
+  # MTU
+  - convert:
+      tag: convert_mtu
+      if: ctx._temp?.iface?.mtu != null
+      field: _temp.iface.mtu
+      target_field: juniper.junos.interfaces.mtu
+      type: long
+      ignore_failure: true
+
+  # SNMP index
+  - convert:
+      tag: convert_snmp_index
+      if: ctx._temp?.iface?.get('snmp-index') != null
+      field: _temp.iface.snmp-index
+      target_field: juniper.junos.interfaces.snmp_index
+      type: long
+      ignore_failure: true
+
+  # Traffic statistics — nested under traffic-statistics after flattening
+  - script:
+      tag: script_extract_traffic_stats
+      lang: painless
+      source: |
+        def ts = ctx._temp?.iface?.get('traffic-statistics');
+        if (ts == null || !(ts instanceof Map)) return;
+        if (ctx.juniper == null) ctx.juniper = new HashMap();
+        if (ctx.juniper.junos == null) ctx.juniper.junos = new HashMap();
+        if (ctx.juniper.junos.interfaces == null) ctx.juniper.junos.interfaces = new HashMap();
+        def traffic = new HashMap();
+        def input = new HashMap();
+        def output = new HashMap();
+
+        if (ts.containsKey('input-bytes')) { try { input.put('bytes', Long.parseLong(ts.get('input-bytes').toString().trim())); } catch(Exception e) {} }
+        if (ts.containsKey('input-packets')) { try { input.put('packets', Long.parseLong(ts.get('input-packets').toString().trim())); } catch(Exception e) {} }
+        if (ts.containsKey('input-bps')) { try { input.put('bps', Long.parseLong(ts.get('input-bps').toString().trim())); } catch(Exception e) {} }
+        if (ts.containsKey('input-pps')) { try { input.put('pps', Long.parseLong(ts.get('input-pps').toString().trim())); } catch(Exception e) {} }
+        if (ts.containsKey('output-bytes')) { try { output.put('bytes', Long.parseLong(ts.get('output-bytes').toString().trim())); } catch(Exception e) {} }
+        if (ts.containsKey('output-packets')) { try { output.put('packets', Long.parseLong(ts.get('output-packets').toString().trim())); } catch(Exception e) {} }
+        if (ts.containsKey('output-bps')) { try { output.put('bps', Long.parseLong(ts.get('output-bps').toString().trim())); } catch(Exception e) {} }
+        if (ts.containsKey('output-pps')) { try { output.put('pps', Long.parseLong(ts.get('output-pps').toString().trim())); } catch(Exception e) {} }
+
+        if (!input.isEmpty()) traffic.put('input', input);
+        if (!output.isEmpty()) traffic.put('output', output);
+        if (!traffic.isEmpty()) ctx.juniper.junos.interfaces.traffic = traffic;
+
+  # Error statistics
+  - script:
+      tag: script_extract_error_stats
+      lang: painless
+      source: |
+        def iface = ctx._temp?.iface;
+        if (iface == null) return;
+        def iel = iface.get('input-error-list');
+        def oel = iface.get('output-error-list');
+        if (iel == null && oel == null) return;
+
+        if (ctx.juniper == null) ctx.juniper = new HashMap();
+        if (ctx.juniper.junos == null) ctx.juniper.junos = new HashMap();
+        if (ctx.juniper.junos.interfaces == null) ctx.juniper.junos.interfaces = new HashMap();
+        def errors = new HashMap();
+
+        if (iel instanceof Map) {
+          if (iel.containsKey('input-errors')) { try { errors.put('input', Long.parseLong(iel.get('input-errors').toString().trim())); } catch(Exception e) {} }
+          if (iel.containsKey('input-drops')) { try { errors.put('input_drops', Long.parseLong(iel.get('input-drops').toString().trim())); } catch(Exception e) {} }
+        }
+        if (oel instanceof Map) {
+          if (oel.containsKey('output-errors')) { try { errors.put('output', Long.parseLong(oel.get('output-errors').toString().trim())); } catch(Exception e) {} }
+          if (oel.containsKey('output-drops')) { try { errors.put('output_drops', Long.parseLong(oel.get('output-drops').toString().trim())); } catch(Exception e) {} }
+        }
+        if (!errors.isEmpty()) ctx.juniper.junos.interfaces.errors = errors;
+
+  # OTel-aligned network metrics
+  - script:
+      tag: script_compute_otel_network_fields
+      lang: painless
+      source: |
+        def traffic = ctx.juniper?.junos?.interfaces?.traffic;
+        def errors = ctx.juniper?.junos?.interfaces?.errors;
+        if (traffic == null && errors == null) return;
+
+        if (ctx.system == null) ctx.system = new HashMap();
+        def net = new HashMap();
+
+        if (traffic != null) {
+          long inBytes = traffic.input?.bytes != null ? traffic.input.bytes : 0L;
+          long outBytes = traffic.output?.bytes != null ? traffic.output.bytes : 0L;
+          net.io = inBytes + outBytes;
+        }
+        if (errors != null) {
+          long inErr = errors.input != null ? errors.input : 0L;
+          long outErr = errors.output != null ? errors.output : 0L;
+          net.errors = inErr + outErr;
+          long inDrops = errors.input_drops != null ? errors.input_drops : 0L;
+          long outDrops = errors.output_drops != null ? errors.output_drops : 0L;
+          def pkt = new HashMap();
+          pkt.dropped = inDrops + outDrops;
+          net.packet = pkt;
+        }
+        ctx.system.network = net;
+
+  # Clean up temporary fields
+  - remove:
+      tag: remove_temp
+      field: _temp
+      ignore_missing: true
+
+  # Remove event.original unless preserve tag is set
+  - remove:
+      tag: remove_event_original
+      if: ctx.tags == null || !(ctx.tags.contains('preserve_original_event'))
+      field: event.original
+      ignore_missing: true
+
+on_failure:
+  - set:
+      field: event.kind
+      value: pipeline_error
+  - append:
+      field: error.message
+      value: "Processor {{ _ingest.on_failure_processor_type }} with tag {{ _ingest.on_failure_processor_tag }} failed with message {{ _ingest.on_failure_message }}"

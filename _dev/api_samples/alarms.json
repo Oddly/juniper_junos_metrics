@@ -1,0 +1,15 @@
+{
+    "alarm-information" : [
+    {
+        "alarm-summary" : [
+        {
+            "no-active-alarms" : [
+            {
+                "data" : [null]
+            }
+            ]
+        }
+        ]
+    }
+    ]
+}

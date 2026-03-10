@@ -1,0 +1,30 @@
+{
+    "event": {
+        "ingested": "2026-03-10T08:09:04.934703735Z",
+        "dataset": "juniper_junos_metrics.ospf",
+        "kind": "metric",
+        "module": "juniper_junos_metrics"
+    },
+    "juniper": {
+        "junos": {
+            "ospf": {
+                "area": {
+                    "stub_type": "Not Stub",
+                    "neighbor_up_count": 0,
+                    "abr_count": 0,
+                    "id": "0.0.0.0",
+                    "asbr_count": 0,
+                    "authentication_type": "None"
+                },
+                "router_id": "172.31.0.120",
+                "instance_name": "master"
+            }
+        }
+    },
+    "@timestamp": "2026-03-10T08:00:00.000Z",
+    "data_stream": {
+        "type": "metrics",
+        "dataset": "juniper_junos_metrics.ospf",
+        "namespace": "default"
+    }
+}

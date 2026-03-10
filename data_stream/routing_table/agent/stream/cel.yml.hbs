@@ -1,0 +1,33 @@
+resource.url: {{host}}/rpc/get-route-summary-information@format=json
+auth.basic.user: {{username}}
+auth.basic.password: {{password}}
+resource.ssl.verification_mode: {{ssl_verification_mode}}
+resource.timeout: 30s
+state:
+  initial: {}
+program: |
+  request("GET", state.url).do_request().as(resp,
+    resp.StatusCode == 200 ?
+      bytes(resp.Body).decode_json().as(body,
+        has(body["route-summary-information"]) && size(body["route-summary-information"]) > 0 ?
+          body["route-summary-information"][0].as(info,
+            has(info["route-table"]) ?
+              info["route-table"].map(rt, {
+                "message": {"router-id": info["router-id"], "route-table": rt}.encode_json(),
+              })
+            :
+              []
+          )
+        :
+          []
+      )
+    :
+      []
+  )
+interval: {{period}}
+{{#if tags}}
+tags:
+{{#each tags as |tag|}}
+  - {{tag}}
+{{/each}}
+{{/if}}

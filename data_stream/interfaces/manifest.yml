@@ -1,0 +1,25 @@
+title: JunOS Interface Metrics
+type: metrics
+streams:
+  - input: cel
+    vars:
+      - name: period
+        type: text
+        title: Collection Interval
+        description: How often to poll the JunOS API for interface metrics.
+        required: true
+        show_user: true
+        default: 60s
+      - name: tags
+        type: text
+        title: Tags
+        multi: true
+        required: false
+        show_user: false
+        default:
+          - juniper-junos
+          - forwarded
+    title: JunOS Interface Metrics
+    description: Collect interface metrics from the JunOS REST API
+elasticsearch:
+  index_mode: time_series

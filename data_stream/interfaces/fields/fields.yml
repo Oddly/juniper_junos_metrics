@@ -1,0 +1,107 @@
+- name: juniper.junos.interfaces
+  type: group
+  fields:
+    - name: name
+      type: keyword
+      dimension: true
+      description: Interface name (for example, ge-0/0/0).
+    - name: description
+      type: keyword
+      description: Interface description.
+    - name: admin_status
+      type: keyword
+      description: Administrative status of the interface.
+    - name: oper_status
+      type: keyword
+      description: Operational status of the interface.
+    - name: mtu
+      type: long
+      metric_type: gauge
+      unit: byte
+      description: Maximum transmission unit in bytes.
+    - name: speed
+      type: keyword
+      description: Interface speed string.
+    - name: mac_address
+      type: keyword
+      description: MAC address of the interface.
+    - name: type
+      type: keyword
+      description: Interface type (for example, Ethernet).
+    - name: link_type
+      type: keyword
+      description: Link type (for example, Full-Duplex).
+    - name: snmp_index
+      type: long
+      description: SNMP interface index.
+    - name: traffic
+      type: group
+      fields:
+        - name: input.bytes
+          type: long
+          metric_type: counter
+          unit: byte
+          description: Total bytes received on the interface.
+        - name: input.packets
+          type: long
+          metric_type: counter
+          description: Total packets received on the interface.
+        - name: input.bps
+          type: long
+          metric_type: gauge
+          unit: bit/s
+          description: Input rate in bits per second.
+        - name: input.pps
+          type: long
+          metric_type: gauge
+          description: Input rate in packets per second.
+        - name: output.bytes
+          type: long
+          metric_type: counter
+          unit: byte
+          description: Total bytes transmitted on the interface.
+        - name: output.packets
+          type: long
+          metric_type: counter
+          description: Total packets transmitted on the interface.
+        - name: output.bps
+          type: long
+          metric_type: gauge
+          unit: bit/s
+          description: Output rate in bits per second.
+        - name: output.pps
+          type: long
+          metric_type: gauge
+          description: Output rate in packets per second.
+    - name: errors
+      type: group
+      fields:
+        - name: input
+          type: long
+          metric_type: counter
+          description: Total input errors on the interface.
+        - name: output
+          type: long
+          metric_type: counter
+          description: Total output errors on the interface.
+        - name: input_drops
+          type: long
+          metric_type: counter
+          description: Total input drops on the interface.
+        - name: output_drops
+          type: long
+          metric_type: counter
+          description: Total output drops on the interface.
+- name: system.network.io
+  type: long
+  metric_type: counter
+  unit: byte
+  description: Network I/O in bytes, split by network.io.direction attribute.
+- name: system.network.errors
+  type: long
+  metric_type: counter
+  description: Network errors, split by direction.
+- name: system.network.packet.dropped
+  type: long
+  metric_type: counter
+  description: Dropped packets, split by direction.

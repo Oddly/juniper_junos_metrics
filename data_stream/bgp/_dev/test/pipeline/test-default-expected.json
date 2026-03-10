@@ -1,0 +1,30 @@
+{
+  "expected": [
+    {
+      "event": {
+        "ingested": "2026-03-10T08:11:21.453868841Z",
+        "dataset": "juniper_junos_metrics.bgp",
+        "kind": "metric",
+        "module": "juniper_junos_metrics"
+      },
+      "juniper": {
+        "junos": {
+          "bgp": {
+            "peer_count": 1,
+            "down_peer_count": 1,
+            "group_count": 1,
+            "peer": {
+              "as": 65120,
+              "input_messages": 0,
+              "address": "172.31.0.1",
+              "output_messages": 0,
+              "flap_count": 0,
+              "elapsed_time": 26,
+              "state": "Active"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

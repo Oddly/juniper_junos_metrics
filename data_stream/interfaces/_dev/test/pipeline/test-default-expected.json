@@ -1,0 +1,72 @@
+{
+  "expected": [
+    {
+      "system": {
+        "network": {
+          "io": 0
+        }
+      },
+      "event": {
+        "ingested": "2026-03-10T08:11:20.924008617Z",
+        "dataset": "juniper_junos_metrics.interfaces",
+        "kind": "metric",
+        "module": "juniper_junos_metrics"
+      },
+      "juniper": {
+        "junos": {
+          "interfaces": {
+            "link_type": "Full-Duplex",
+            "mac_address": "bc:24:11:c4:0f:18",
+            "snmp_index": 1,
+            "name": "fxp0",
+            "admin_status": "up",
+            "type": "Ethernet",
+            "oper_status": "up",
+            "speed": "10Gbps",
+            "mtu": 1514,
+            "traffic": {
+              "output": {
+                "packets": 379
+              },
+              "input": {
+                "packets": 140
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "system": {
+        "network": {
+          "io": 0
+        }
+      },
+      "event": {
+        "ingested": "2026-03-10T08:11:20.924083720Z",
+        "dataset": "juniper_junos_metrics.interfaces",
+        "kind": "metric",
+        "module": "juniper_junos_metrics"
+      },
+      "juniper": {
+        "junos": {
+          "interfaces": {
+            "snmp_index": 6,
+            "name": "lo0",
+            "admin_status": "up",
+            "type": "Loopback",
+            "oper_status": "up",
+            "traffic": {
+              "output": {
+                "packets": 1130
+              },
+              "input": {
+                "packets": 1130
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

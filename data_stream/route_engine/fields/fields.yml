@@ -1,0 +1,95 @@
+- name: juniper.junos.route_engine
+  type: group
+  fields:
+    - name: slot
+      type: keyword
+      dimension: true
+      description: Route engine slot number.
+    - name: status
+      type: keyword
+      description: Route engine status.
+    - name: model
+      type: keyword
+      dimension: true
+      description: Route engine model.
+    - name: mastership_state
+      type: keyword
+      description: Route engine mastership state (master or backup).
+    - name: temperature.routing_engine
+      type: float
+      metric_type: gauge
+      unit: Cel
+      description: Route engine temperature in Celsius.
+    - name: temperature.cpu
+      type: float
+      metric_type: gauge
+      unit: Cel
+      description: CPU temperature in Celsius.
+    - name: cpu.user
+      type: float
+      metric_type: gauge
+      unit: percent
+      description: CPU user utilization percentage.
+    - name: cpu.background
+      type: float
+      metric_type: gauge
+      unit: percent
+      description: CPU background utilization percentage.
+    - name: cpu.kernel
+      type: float
+      metric_type: gauge
+      unit: percent
+      description: CPU kernel utilization percentage.
+    - name: cpu.interrupt
+      type: float
+      metric_type: gauge
+      unit: percent
+      description: CPU interrupt utilization percentage.
+    - name: cpu.idle
+      type: float
+      metric_type: gauge
+      unit: percent
+      description: CPU idle percentage.
+    - name: memory.total
+      type: long
+      metric_type: gauge
+      unit: byte
+      description: Total memory in bytes.
+    - name: memory.buffer_utilization
+      type: float
+      metric_type: gauge
+      unit: percent
+      description: Memory buffer utilization percentage.
+    - name: load_average.one_minute
+      type: float
+      metric_type: gauge
+      description: One-minute load average.
+    - name: load_average.five_minute
+      type: float
+      metric_type: gauge
+      description: Five-minute load average.
+    - name: load_average.fifteen_minute
+      type: float
+      metric_type: gauge
+      description: Fifteen-minute load average.
+    - name: uptime
+      type: long
+      metric_type: gauge
+      unit: s
+      description: Route engine uptime in seconds.
+    - name: last_reboot_reason
+      type: keyword
+      description: Reason for the last reboot.
+    - name: start_time
+      type: date
+      description: Route engine start time.
+- name: system.cpu.utilization
+  type: float
+  metric_type: gauge
+  unit: "1"
+  description: CPU utilization as a fraction from 0 to 1, mapped from 1 minus cpu.idle divided by 100.
+- name: system.memory.utilization
+  type: float
+  metric_type: gauge
+  unit: "1"
+  description: Memory utilization as a fraction from 0 to 1, mapped from memory.buffer_utilization divided by 100.

@@ -1,0 +1,255 @@
+{
+    "route-summary-information" : [
+    {
+        "router-id" : [
+        {
+            "data" : "172.31.0.120"
+        }
+        ], 
+        "routing-highwatermark" : [
+        {
+            "rt-uniq-highwatermark" : [
+            {
+                "data" : "14"
+            }
+            ], 
+            "rt-uniq-highwatermark-ts" : [
+            {
+                "data" : "2026-03-10 07:47:30"
+            }
+            ], 
+            "rt-uniq-tavg-watermark" : [
+            {
+                "data" : "0"
+            }
+            ], 
+            "rt-all-highwatermark" : [
+            {
+                "data" : "15"
+            }
+            ], 
+            "rt-all-highwatermark-ts" : [
+            {
+                "data" : "2026-03-10 07:47:30"
+            }
+            ], 
+            "rt-all-tavg-watermark" : [
+            {
+                "data" : "0"
+            }
+            ], 
+            "rt-fib-highwatermark" : [
+            {
+                "data" : "2"
+            }
+            ], 
+            "rt-fib-highwatermark-ts" : [
+            {
+                "data" : "2026-03-10 07:41:43"
+            }
+            ], 
+            "rt-fib-tavg-watermark" : [
+            {
+                "data" : "0"
+            }
+            ], 
+            "rt-vrf-highwatermark" : [
+            {
+                "data" : "0"
+            }
+            ], 
+            "rt-vrf-highwatermark-ts" : [
+            {
+                "data" : "2026-03-10 07:41:37"
+            }
+            ]
+        }
+        ], 
+        "route-table" : [
+        {
+            "table-name" : [
+            {
+                "data" : "inet.0"
+            }
+            ], 
+            "destination-count" : [
+            {
+                "data" : "3"
+            }
+            ], 
+            "total-route-count" : [
+            {
+                "data" : "3"
+            }
+            ], 
+            "active-route-count" : [
+            {
+                "data" : "3"
+            }
+            ], 
+            "holddown-route-count" : [
+            {
+                "data" : "0"
+            }
+            ], 
+            "hidden-route-count" : [
+            {
+                "data" : "0"
+            }
+            ], 
+            "prefix-max" : [
+            {
+                "data" : "1048576"
+            }
+            ], 
+            "prefix-threshold" : [
+            {
+                "data" : "1048576"
+            }
+            ], 
+            "prefix-label" : [
+            {
+                "data" : "destinations"
+            }
+            ], 
+            "protocols" : [
+            {
+                "protocol-name" : [
+                {
+                    "data" : "Direct"
+                }
+                ], 
+                "protocol-route-count" : [
+                {
+                    "data" : "1"
+                }
+                ], 
+                "active-route-count" : [
+                {
+                    "data" : "1"
+                }
+                ]
+            }, 
+            {
+                "protocol-name" : [
+                {
+                    "data" : "Local"
+                }
+                ], 
+                "protocol-route-count" : [
+                {
+                    "data" : "1"
+                }
+                ], 
+                "active-route-count" : [
+                {
+                    "data" : "1"
+                }
+                ]
+            }, 
+            {
+                "protocol-name" : [
+                {
+                    "data" : "Static"
+                }
+                ], 
+                "protocol-route-count" : [
+                {
+                    "data" : "1"
+                }
+                ], 
+                "active-route-count" : [
+                {
+                    "data" : "1"
+                }
+                ]
+            }
+            ]
+        }, 
+        {
+            "table-name" : [
+            {
+                "data" : "inet6.0"
+            }
+            ], 
+            "destination-count" : [
+            {
+                "data" : "2"
+            }
+            ], 
+            "total-route-count" : [
+            {
+                "data" : "2"
+            }
+            ], 
+            "active-route-count" : [
+            {
+                "data" : "2"
+            }
+            ], 
+            "holddown-route-count" : [
+            {
+                "data" : "0"
+            }
+            ], 
+            "hidden-route-count" : [
+            {
+                "data" : "0"
+            }
+            ], 
+            "prefix-max" : [
+            {
+                "data" : "1048576"
+            }
+            ], 
+            "prefix-threshold" : [
+            {
+                "data" : "1048576"
+            }
+            ], 
+            "prefix-label" : [
+            {
+                "data" : "destinations"
+            }
+            ], 
+            "protocols" : [
+            {
+                "protocol-name" : [
+                {
+                    "data" : "Local"
+                }
+                ], 
+                "protocol-route-count" : [
+                {
+                    "data" : "1"
+                }
+                ], 
+                "active-route-count" : [
+                {
+                    "data" : "1"
+                }
+                ]
+            }, 
+            {
+                "protocol-name" : [
+                {
+                    "data" : "INET6"
+                }
+                ], 
+                "protocol-route-count" : [
+                {
+                    "data" : "1"
+                }
+                ], 
+                "active-route-count" : [
+                {
+                    "data" : "1"
+                }
+                ]
+            }
+            ]
+        }
+        ]
+    }
+    ]
+}

@@ -1,0 +1,10 @@
+{
+  "events": [
+    {
+      "message": "{\"router-id\": [{\"data\": \"172.31.0.120\"}], \"route-table\": {\"table-name\": [{\"data\": \"inet.0\"}], \"destination-count\": [{\"data\": \"3\"}], \"total-route-count\": [{\"data\": \"3\"}], \"active-route-count\": [{\"data\": \"3\"}], \"holddown-route-count\": [{\"data\": \"0\"}], \"hidden-route-count\": [{\"data\": \"0\"}], \"prefix-max\": [{\"data\": \"1048576\"}], \"prefix-threshold\": [{\"data\": \"1048576\"}], \"prefix-label\": [{\"data\": \"destinations\"}], \"protocols\": [{\"protocol-name\": [{\"data\": \"Direct\"}], \"protocol-route-count\": [{\"data\": \"1\"}], \"active-route-count\": [{\"data\": \"1\"}]}, {\"protocol-name\": [{\"data\": \"Local\"}], \"protocol-route-count\": [{\"data\": \"1\"}], \"active-route-count\": [{\"data\": \"1\"}]}, {\"protocol-name\": [{\"data\": \"Static\"}], \"protocol-route-count\": [{\"data\": \"1\"}], \"active-route-count\": [{\"data\": \"1\"}]}]}}"
+    },
+    {
+      "message": "{\"router-id\": [{\"data\": \"172.31.0.120\"}], \"route-table\": {\"table-name\": [{\"data\": \"inet6.0\"}], \"destination-count\": [{\"data\": \"2\"}], \"total-route-count\": [{\"data\": \"2\"}], \"active-route-count\": [{\"data\": \"2\"}], \"holddown-route-count\": [{\"data\": \"0\"}], \"hidden-route-count\": [{\"data\": \"0\"}], \"prefix-max\": [{\"data\": \"1048576\"}], \"prefix-threshold\": [{\"data\": \"1048576\"}], \"prefix-label\": [{\"data\": \"destinations\"}], \"protocols\": [{\"protocol-name\": [{\"data\": \"Local\"}], \"protocol-route-count\": [{\"data\": \"1\"}], \"active-route-count\": [{\"data\": \"1\"}]}, {\"protocol-name\": [{\"data\": \"INET6\"}], \"protocol-route-count\": [{\"data\": \"1\"}], \"active-route-count\": [{\"data\": \"1\"}]}]}}"
+    }
+  ]
+}

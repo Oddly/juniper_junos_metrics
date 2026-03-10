@@ -1,0 +1,31 @@
+- name: juniper.junos.routing_table
+  type: group
+  fields:
+    - name: router_id
+      type: keyword
+      dimension: true
+      description: Router ID.
+    - name: table_name
+      type: keyword
+      dimension: true
+      description: Route table name (e.g. inet.0, inet6.0).
+    - name: destination_count
+      type: long
+      metric_type: gauge
+      description: Number of destinations in the route table.
+    - name: total_route_count
+      type: long
+      metric_type: gauge
+      description: Total number of routes in the route table.
+    - name: active_route_count
+      type: long
+      metric_type: gauge
+      description: Number of active routes in the route table.
+    - name: holddown_route_count
+      type: long
+      metric_type: gauge
+      description: Number of holddown routes in the route table.
+    - name: hidden_route_count
+      type: long
+      metric_type: gauge
+      description: Number of hidden routes in the route table.

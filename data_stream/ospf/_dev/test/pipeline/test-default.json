@@ -1,0 +1,7 @@
+{
+  "events": [
+    {
+      "message": "{\"instance-name\": [{\"data\": \"master\"}], \"ospf-router-id\": [{\"data\": \"172.31.0.120\"}], \"area\": {\"ospf-area\": [{\"data\": \"0.0.0.0\"}], \"ospf-stub-type\": [{\"data\": \"Not Stub\"}], \"authentication-type\": [{\"data\": \"None\"}], \"ospf-abr-count\": [{\"data\": \"0\"}], \"ospf-asbr-count\": [{\"data\": \"0\"}], \"ospf-nbr-overview\": [{\"ospf-nbr-up-count\": [{\"data\": \"0\"}]}]}}"
+    }
+  ]
+}

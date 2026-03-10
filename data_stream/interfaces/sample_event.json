@@ -1,0 +1,42 @@
+{
+    "system": {
+        "network": {
+            "io": 0
+        }
+    },
+    "event": {
+        "ingested": "2026-03-10T08:09:04.267618445Z",
+        "dataset": "juniper_junos_metrics.interfaces",
+        "kind": "metric",
+        "module": "juniper_junos_metrics"
+    },
+    "juniper": {
+        "junos": {
+            "interfaces": {
+                "link_type": "Full-Duplex",
+                "mac_address": "bc:24:11:c4:0f:18",
+                "snmp_index": 1,
+                "name": "fxp0",
+                "admin_status": "up",
+                "type": "Ethernet",
+                "oper_status": "up",
+                "speed": "10Gbps",
+                "mtu": 1514,
+                "traffic": {
+                    "output": {
+                        "packets": 379
+                    },
+                    "input": {
+                        "packets": 140
+                    }
+                }
+            }
+        }
+    },
+    "@timestamp": "2026-03-10T08:00:00.000Z",
+    "data_stream": {
+        "type": "metrics",
+        "dataset": "juniper_junos_metrics.interfaces",
+        "namespace": "default"
+    }
+}

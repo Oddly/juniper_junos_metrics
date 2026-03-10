@@ -1,0 +1,45 @@
+- name: juniper.junos.bgp
+  type: group
+  fields:
+    - name: group_count
+      type: long
+      metric_type: gauge
+      description: Number of BGP groups configured.
+    - name: peer_count
+      type: long
+      metric_type: gauge
+      description: Total number of BGP peers.
+    - name: down_peer_count
+      type: long
+      metric_type: gauge
+      description: Number of BGP peers that are down.
+    - name: peer
+      type: group
+      fields:
+        - name: address
+          type: keyword
+          dimension: true
+          description: BGP peer IP address.
+        - name: as
+          type: long
+          description: BGP peer autonomous system number.
+        - name: state
+          type: keyword
+          description: BGP peer state (Established, Active, Connect, etc.).
+        - name: input_messages
+          type: long
+          metric_type: counter
+          description: Number of messages received from peer.
+        - name: output_messages
+          type: long
+          metric_type: counter
+          description: Number of messages sent to peer.
+        - name: flap_count
+          type: long
+          metric_type: counter
+          description: Number of times peer has flapped.
+        - name: elapsed_time
+          type: long
+          metric_type: gauge
+          unit: s
+          description: Time since last state change in seconds.

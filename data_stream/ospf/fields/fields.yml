@@ -1,0 +1,36 @@
+- name: juniper.junos.ospf
+  type: group
+  fields:
+    - name: instance_name
+      type: keyword
+      dimension: true
+      description: OSPF instance name.
+    - name: router_id
+      type: keyword
+      dimension: true
+      description: OSPF router ID.
+    - name: area
+      type: group
+      fields:
+        - name: id
+          type: keyword
+          dimension: true
+          description: OSPF area ID (e.g. 0.0.0.0).
+        - name: stub_type
+          type: keyword
+          description: OSPF area stub type.
+        - name: authentication_type
+          type: keyword
+          description: OSPF area authentication type.
+        - name: abr_count
+          type: long
+          metric_type: gauge
+          description: Number of area border routers in the area.
+        - name: asbr_count
+          type: long
+          metric_type: gauge
+          description: Number of AS boundary routers in the area.
+        - name: neighbor_up_count
+          type: long
+          metric_type: gauge
+          description: Number of OSPF neighbors that are up.

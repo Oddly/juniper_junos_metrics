@@ -1,0 +1,59 @@
+format_version: "3.3.0"
+name: juniper_junos_metrics
+title: Juniper JunOS Metrics
+version: 0.1.0
+description: Collect metrics from Juniper JunOS devices via REST API.
+type: integration
+categories:
+  - network
+  - monitoring
+conditions:
+  kibana:
+    version: "^8.16.0 || ^9.0.0"
+  elastic:
+    subscription: basic
+icons:
+  - src: /img/logo.svg
+    title: Juniper JunOS Metrics
+    size: 32x32
+    type: image/svg+xml
+policy_templates:
+  - name: juniper_junos
+    title: Juniper JunOS
+    description: Collect metrics from Juniper JunOS devices via REST API
+    vars:
+      - name: host
+        type: text
+        title: Device Host
+        description: JunOS device hostname or IP with port (for example, https://192.168.1.1:3443)
+        required: true
+        show_user: true
+        default: "https://192.168.1.1:3443"
+      - name: username
+        type: text
+        title: Username
+        description: JunOS REST API username
+        required: true
+        show_user: true
+        default: root
+      - name: password
+        type: password
+        title: Password
+        description: JunOS REST API password
+        required: true
+        show_user: true
+        secret: true
+      - name: ssl_verification_mode
+        type: text
+        title: SSL Verification Mode
+        description: "SSL verification mode: none, certificate, or full"
+        required: false
+        show_user: true
+        default: none
+    inputs:
+      - type: cel
+        title: Collect JunOS metrics
+        description: Poll JunOS REST API for device metrics
+owner:
+  github: elastic/obs-infraobs-integrations
+  type: community

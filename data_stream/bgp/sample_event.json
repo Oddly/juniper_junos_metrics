@@ -1,0 +1,32 @@
+{
+    "event": {
+        "ingested": "2026-03-10T08:09:04.764770067Z",
+        "dataset": "juniper_junos_metrics.bgp",
+        "kind": "metric",
+        "module": "juniper_junos_metrics"
+    },
+    "juniper": {
+        "junos": {
+            "bgp": {
+                "peer_count": 1,
+                "down_peer_count": 1,
+                "group_count": 1,
+                "peer": {
+                    "as": 65120,
+                    "input_messages": 0,
+                    "address": "172.31.0.1",
+                    "output_messages": 0,
+                    "flap_count": 0,
+                    "elapsed_time": 26,
+                    "state": "Active"
+                }
+            }
+        }
+    },
+    "@timestamp": "2026-03-10T08:00:00.000Z",
+    "data_stream": {
+        "type": "metrics",
+        "dataset": "juniper_junos_metrics.bgp",
+        "namespace": "default"
+    }
+}

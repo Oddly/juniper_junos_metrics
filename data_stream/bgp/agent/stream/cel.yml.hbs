@@ -1,0 +1,36 @@
+resource.url: {{host}}/rpc/get-bgp-summary-information@format=json
+auth.basic.user: {{username}}
+auth.basic.password: {{password}}
+resource.ssl.verification_mode: {{ssl_verification_mode}}
+resource.timeout: 30s
+state:
+  initial: {}
+program: |
+  request("GET", state.url).do_request().as(resp,
+    resp.StatusCode == 200 ?
+      bytes(resp.Body).decode_json().as(body,
+        has(body["bgp-information"]) && size(body["bgp-information"]) > 0
+        && has(body["bgp-information"][0]["bgp-peer"]) ?
+          body["bgp-information"][0].as(info,
+            info["bgp-peer"].map(peer, {
+              "message": {
+                "group-count": info["group-count"],
+                "peer-count": info["peer-count"],
+                "down-peer-count": info["down-peer-count"],
+                "peer": peer
+              }.encode_json(),
+            })
+          )
+        :
+          []
+      )
+    :
+      []
+  )
+interval: {{period}}
+{{#if tags}}
+tags:
+{{#each tags as |tag|}}
+  - {{tag}}
+{{/each}}
+{{/if}}

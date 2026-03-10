@@ -1,0 +1,26 @@
+- name: juniper.junos.environment
+  type: group
+  fields:
+    - name: name
+      type: keyword
+      dimension: true
+      description: Environment item name (e.g. Routing Engine 0, FPC 0 CPU).
+    - name: class
+      type: keyword
+      description: Environment class (Temp, Fans, Power, etc.).
+    - name: status
+      type: keyword
+      description: Environment item status (OK, Check, etc.).
+    - name: temperature
+      type: float
+      metric_type: gauge
+      unit: Cel
+      description: Temperature in Celsius.
+    - name: comment
+      type: keyword
+      description: Additional comment or detail about the item.
+- name: hw.host.temperature
+  type: float
+  metric_type: gauge
+  unit: Cel
+  description: OTel-aligned hardware host temperature in Celsius.

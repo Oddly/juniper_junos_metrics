@@ -1,0 +1,25 @@
+title: JunOS Routing Table Metrics
+type: metrics
+streams:
+  - input: cel
+    vars:
+      - name: period
+        type: text
+        title: Collection Interval
+        description: How often to poll the JunOS API for routing table metrics.
+        required: true
+        show_user: true
+        default: 300s
+      - name: tags
+        type: text
+        title: Tags
+        multi: true
+        required: false
+        show_user: false
+        default:
+          - juniper-junos
+          - forwarded
+    title: JunOS Routing Table Metrics
+    description: Collect routing table summary metrics from the JunOS REST API
+elasticsearch:
+  index_mode: time_series

@@ -1,0 +1,27 @@
+{
+    "event": {
+        "ingested": "2026-03-10T08:09:04.594147679Z",
+        "dataset": "juniper_junos_metrics.routing_table",
+        "kind": "metric",
+        "module": "juniper_junos_metrics"
+    },
+    "juniper": {
+        "junos": {
+            "routing_table": {
+                "destination_count": 3,
+                "hidden_route_count": 0,
+                "total_route_count": 3,
+                "holddown_route_count": 0,
+                "router_id": "172.31.0.120",
+                "table_name": "inet.0",
+                "active_route_count": 3
+            }
+        }
+    },
+    "@timestamp": "2026-03-10T08:00:00.000Z",
+    "data_stream": {
+        "type": "metrics",
+        "dataset": "juniper_junos_metrics.routing_table",
+        "namespace": "default"
+    }
+}

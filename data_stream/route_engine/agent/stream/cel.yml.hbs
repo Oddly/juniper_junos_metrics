@@ -1,0 +1,29 @@
+resource.url: {{host}}/rpc/get-route-engine-information@format=json
+auth.basic.user: {{username}}
+auth.basic.password: {{password}}
+resource.ssl.verification_mode: {{ssl_verification_mode}}
+resource.timeout: 30s
+state:
+  initial: {}
+program: |
+  request("GET", state.url).do_request().as(resp,
+    resp.StatusCode == 200 ?
+      bytes(resp.Body).decode_json().as(body,
+        has(body["route-engine-information"]) && size(body["route-engine-information"]) > 0
+        && has(body["route-engine-information"][0]["route-engine"]) ?
+          body["route-engine-information"][0]["route-engine"].map(re, {
+            "message": re.encode_json(),
+          })
+        :
+          []
+      )
+    :
+      []
+  )
+interval: {{period}}
+{{#if tags}}
+tags:
+{{#each tags as |tag|}}
+  - {{tag}}
+{{/each}}
+{{/if}}

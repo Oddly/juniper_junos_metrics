@@ -1,0 +1,82 @@
+{
+  "expected": [
+    {
+      "system": {
+        "filesystem": {
+          "utilization": 0.1,
+          "usage": 3714990080
+        }
+      },
+      "event": {
+        "ingested": "2026-03-10T08:11:21.099066685Z",
+        "dataset": "juniper_junos_metrics.storage",
+        "kind": "metric",
+        "module": "juniper_junos_metrics"
+      },
+      "juniper": {
+        "junos": {
+          "storage": {
+            "filesystem_name": "/dev/gpt/junos",
+            "available_bytes": 35171901440,
+            "used_bytes": 3714990080,
+            "total_bytes": 42268352512,
+            "used_percent": 10.0,
+            "mounted_on": "/.mount"
+          }
+        }
+      }
+    },
+    {
+      "system": {
+        "filesystem": {
+          "utilization": 0.0,
+          "usage": 24576
+        }
+      },
+      "event": {
+        "ingested": "2026-03-10T08:11:21.099098676Z",
+        "dataset": "juniper_junos_metrics.storage",
+        "kind": "metric",
+        "module": "juniper_junos_metrics"
+      },
+      "juniper": {
+        "junos": {
+          "storage": {
+            "filesystem_name": "tmpfs",
+            "available_bytes": 6418006016,
+            "used_bytes": 24576,
+            "total_bytes": 6418030592,
+            "used_percent": 0.0,
+            "mounted_on": "/.mount/tmp"
+          }
+        }
+      }
+    },
+    {
+      "system": {
+        "filesystem": {
+          "utilization": 0.0,
+          "usage": 1622016
+        }
+      },
+      "event": {
+        "ingested": "2026-03-10T08:11:21.099109106Z",
+        "dataset": "juniper_junos_metrics.storage",
+        "kind": "metric",
+        "module": "juniper_junos_metrics"
+      },
+      "juniper": {
+        "junos": {
+          "storage": {
+            "filesystem_name": "tmpfs",
+            "available_bytes": 638566400,
+            "used_bytes": 1622016,
+            "total_bytes": 640188416,
+            "used_percent": 0.0,
+            "mounted_on": "/.mount/mfs"
+          }
+        }
+      }
+    }
+  ]
+}
