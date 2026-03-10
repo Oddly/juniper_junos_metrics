@@ -207,7 +207,7 @@ Refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ec
 | juniper.junos.interfaces.mtu | Maximum transmission unit size configured on the interface, in bytes. | long | byte | gauge |
 | juniper.junos.interfaces.name | Interface name (for example ge-0/0/0, ae0, lo0). Used as a TSDB dimension. | keyword |  |  |
 | juniper.junos.interfaces.oper_status | Operational status of the interface (up or down), reflecting the actual link state. | keyword |  |  |
-| juniper.junos.interfaces.snmp_index | SNMP ifIndex value assigned to this interface for SNMP polling. | long |  | gauge |
+| juniper.junos.interfaces.snmp_index | SNMP ifIndex value assigned to this interface for SNMP polling. | long |  |  |
 | juniper.junos.interfaces.speed | Negotiated or configured interface speed (for example 1000mbps, 10Gbps, Auto). | keyword |  |  |
 | juniper.junos.interfaces.traffic.input.bps | Current inbound traffic rate in bits per second. | long |  | gauge |
 | juniper.junos.interfaces.traffic.input.bytes | Cumulative number of bytes received on the interface. | long | byte | counter |
@@ -221,6 +221,453 @@ Refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ec
 | observer.product | Observer product name. | keyword |  |  |
 | observer.type | Observer type such as router, switch, or firewall. | keyword |  |  |
 | observer.vendor | Observer vendor name. | keyword |  |  |
+
+
+### BGP
+
+The `bgp` data stream collects BGP peer summary information including peer state, AS numbers, route counts, and flap statistics. Each polling interval produces one event per BGP peer.
+
+An example event for `bgp` looks as following:
+
+```json
+{
+    "event": {
+        "dataset": "juniper_junos_metrics.bgp",
+        "kind": "metric",
+        "module": "juniper_junos_metrics"
+    },
+    "juniper": {
+        "junos": {
+            "bgp": {
+                "down_peer_count": 1,
+                "group_count": 1,
+                "peer": {
+                    "address": "172.31.0.1",
+                    "as": 65120,
+                    "elapsed_time": 10281,
+                    "flap_count": 0,
+                    "input_messages": 0,
+                    "output_messages": 0,
+                    "state": "Active"
+                },
+                "peer_count": 1
+            }
+        }
+    },
+    "observer": {
+        "product": "JunOS",
+        "type": "router",
+        "vendor": "Juniper"
+    },
+    "data_stream": {
+        "type": "metrics",
+        "dataset": "juniper_junos_metrics.bgp",
+        "namespace": "default"
+    },
+    "ecs": {
+        "version": "8.0.0"
+    },
+    "input": {
+        "type": "cel"
+    }
+}
+```
+
+**ECS Field Reference**
+
+Refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ecs-field-reference.html) for detailed information on ECS fields.
+
+**Exported fields**
+
+| Field | Description | Type | Unit | Metric Type |
+|---|---|---|---|---|
+| @timestamp | Event timestamp. | date |  |  |
+| data_stream.dataset | Data stream dataset. | constant_keyword |  |  |
+| data_stream.namespace | Data stream namespace. | constant_keyword |  |  |
+| data_stream.type | Data stream type. | constant_keyword |  |  |
+| ecs.version | ECS version this event conforms to. | keyword |  |  |
+| error.message | Error message. | match_only_text |  |  |
+| event.dataset | Event dataset. | constant_keyword |  |  |
+| event.kind | The kind of event. | keyword |  |  |
+| event.module | Event module. | constant_keyword |  |  |
+| juniper.junos.bgp.down_peer_count | Number of BGP peers not in the Established state. | long |  | gauge |
+| juniper.junos.bgp.group_count | Total number of BGP peer groups configured on the router. | long |  | gauge |
+| juniper.junos.bgp.peer.address | IP address of the BGP peer. Used as a TSDB dimension. | keyword |  |  |
+| juniper.junos.bgp.peer.as | Autonomous system number of the remote BGP peer. Used as a TSDB dimension. | long |  |  |
+| juniper.junos.bgp.peer.elapsed_time | Time elapsed since the last BGP state change for this peer, in seconds. | long | s | gauge |
+| juniper.junos.bgp.peer.flap_count | Number of times this peer session has transitioned away from Established state. | long |  | counter |
+| juniper.junos.bgp.peer.input_messages | Cumulative number of BGP messages received from this peer. | long |  | counter |
+| juniper.junos.bgp.peer.output_messages | Cumulative number of BGP messages sent to this peer. | long |  | counter |
+| juniper.junos.bgp.peer.state | Current BGP FSM state of the peer (for example Established, Active, Connect, OpenSent). | keyword |  |  |
+| juniper.junos.bgp.peer_count | Total number of configured BGP peers across all groups. | long |  | gauge |
+| observer.product | Observer product name. | keyword |  |  |
+| observer.type | Observer type such as router, switch, or firewall. | keyword |  |  |
+| observer.vendor | Observer vendor name. | keyword |  |  |
+
+
+### OSPF
+
+The `ospf` data stream collects OSPF area overview information including area ID, neighbor counts, interface counts, and stub configuration. Each polling interval produces one event per OSPF area.
+
+An example event for `ospf` looks as following:
+
+```json
+{
+    "event": {
+        "dataset": "juniper_junos_metrics.ospf",
+        "kind": "metric",
+        "module": "juniper_junos_metrics"
+    },
+    "juniper": {
+        "junos": {
+            "ospf": {
+                "area": {
+                    "abr_count": 0,
+                    "asbr_count": 0,
+                    "authentication_type": "None",
+                    "id": "0.0.0.0",
+                    "neighbor_up_count": 0,
+                    "stub_type": "Not Stub"
+                },
+                "instance_name": "master",
+                "router_id": "172.31.0.120"
+            }
+        }
+    },
+    "observer": {
+        "product": "JunOS",
+        "type": "router",
+        "vendor": "Juniper"
+    },
+    "data_stream": {
+        "type": "metrics",
+        "dataset": "juniper_junos_metrics.ospf",
+        "namespace": "default"
+    },
+    "ecs": {
+        "version": "8.0.0"
+    },
+    "input": {
+        "type": "cel"
+    }
+}
+```
+
+**ECS Field Reference**
+
+Refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ecs-field-reference.html) for detailed information on ECS fields.
+
+**Exported fields**
+
+| Field | Description | Type | Metric Type |
+|---|---|---|---|
+| @timestamp | Event timestamp. | date |  |
+| data_stream.dataset | Data stream dataset. | constant_keyword |  |
+| data_stream.namespace | Data stream namespace. | constant_keyword |  |
+| data_stream.type | Data stream type. | constant_keyword |  |
+| ecs.version | ECS version this event conforms to. | keyword |  |
+| error.message | Error message. | match_only_text |  |
+| event.dataset | Event dataset. | constant_keyword |  |
+| event.kind | The kind of event. | keyword |  |
+| event.module | Event module. | constant_keyword |  |
+| juniper.junos.ospf.area.abr_count | Number of Area Border Routers (ABRs) detected in this OSPF area. | long | gauge |
+| juniper.junos.ospf.area.asbr_count | Number of Autonomous System Boundary Routers (ASBRs) detected in this OSPF area. | long | gauge |
+| juniper.junos.ospf.area.authentication_type | Authentication method configured for the area (for example None, MD5, Simple). | keyword |  |
+| juniper.junos.ospf.area.id | OSPF area identifier in dotted-decimal notation (for example 0.0.0.0 for backbone). Used as a TSDB dimension. | keyword |  |
+| juniper.junos.ospf.area.neighbor_up_count | Number of OSPF neighbors in Full adjacency state within this area. | long | gauge |
+| juniper.junos.ospf.area.stub_type | Area stub configuration type (for example Not Stub, Stub, NSSA). | keyword |  |
+| juniper.junos.ospf.instance_name | Name of the OSPF routing instance. Used as a TSDB dimension. | keyword |  |
+| juniper.junos.ospf.router_id | OSPF router ID in dotted-decimal notation. Used as a TSDB dimension. | keyword |  |
+| observer.product | Observer product name. | keyword |  |
+| observer.type | Observer type such as router, switch, or firewall. | keyword |  |
+| observer.vendor | Observer vendor name. | keyword |  |
+
+
+### Routing Table
+
+The `routing_table` data stream collects routing table summary statistics including active, total, holddown, and hidden route counts per table. Each polling interval produces one event per routing table.
+
+An example event for `routing_table` looks as following:
+
+```json
+{
+    "event": {
+        "dataset": "juniper_junos_metrics.routing_table",
+        "kind": "metric",
+        "module": "juniper_junos_metrics"
+    },
+    "juniper": {
+        "junos": {
+            "routing_table": {
+                "active_route_count": 5,
+                "destination_count": 5,
+                "hidden_route_count": 0,
+                "holddown_route_count": 0,
+                "router_id": "172.31.0.120",
+                "table_name": "inet.0",
+                "total_route_count": 5
+            }
+        }
+    },
+    "observer": {
+        "product": "JunOS",
+        "type": "router",
+        "vendor": "Juniper"
+    },
+    "data_stream": {
+        "type": "metrics",
+        "dataset": "juniper_junos_metrics.routing_table",
+        "namespace": "default"
+    },
+    "ecs": {
+        "version": "8.0.0"
+    },
+    "input": {
+        "type": "cel"
+    }
+}
+```
+
+**ECS Field Reference**
+
+Refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ecs-field-reference.html) for detailed information on ECS fields.
+
+**Exported fields**
+
+| Field | Description | Type | Metric Type |
+|---|---|---|---|
+| @timestamp | Event timestamp. | date |  |
+| data_stream.dataset | Data stream dataset. | constant_keyword |  |
+| data_stream.namespace | Data stream namespace. | constant_keyword |  |
+| data_stream.type | Data stream type. | constant_keyword |  |
+| ecs.version | ECS version this event conforms to. | keyword |  |
+| error.message | Error message. | match_only_text |  |
+| event.dataset | Event dataset. | constant_keyword |  |
+| event.kind | The kind of event. | keyword |  |
+| event.module | Event module. | constant_keyword |  |
+| juniper.junos.routing_table.active_route_count | Number of routes currently selected as best path and installed in the forwarding table. | long | gauge |
+| juniper.junos.routing_table.destination_count | Number of unique destination prefixes in the routing table. | long | gauge |
+| juniper.junos.routing_table.hidden_route_count | Number of routes hidden due to import policy rejection or next-hop resolution failure. | long | gauge |
+| juniper.junos.routing_table.holddown_route_count | Number of routes in holddown state, pending deletion after withdrawal. | long | gauge |
+| juniper.junos.routing_table.router_id | Router ID of the device in dotted-decimal notation. Used as a TSDB dimension. | keyword |  |
+| juniper.junos.routing_table.table_name | Routing table name (for example inet.0, inet6.0, mpls.0). Used as a TSDB dimension. | keyword |  |
+| juniper.junos.routing_table.total_route_count | Total number of routes in the routing table, including inactive and hidden routes. | long | gauge |
+| observer.product | Observer product name. | keyword |  |
+| observer.type | Observer type such as router, switch, or firewall. | keyword |  |
+| observer.vendor | Observer vendor name. | keyword |  |
+
+
+### Storage
+
+The `storage` data stream collects filesystem usage statistics including total, used, and available bytes, and utilization percentage. Each polling interval produces one event per mounted filesystem.
+
+An example event for `storage` looks as following:
+
+```json
+{
+    "event": {
+        "dataset": "juniper_junos_metrics.storage",
+        "kind": "metric",
+        "module": "juniper_junos_metrics"
+    },
+    "juniper": {
+        "junos": {
+            "storage": {
+                "available_bytes": 35166560256,
+                "filesystem_name": "/dev/gpt/junos",
+                "mounted_on": "/.mount",
+                "total_bytes": 42268352512,
+                "used_bytes": 3720331264,
+                "used_percent": 10.0
+            }
+        }
+    },
+    "observer": {
+        "product": "JunOS",
+        "type": "router",
+        "vendor": "Juniper"
+    },
+    "data_stream": {
+        "type": "metrics",
+        "dataset": "juniper_junos_metrics.storage",
+        "namespace": "default"
+    },
+    "ecs": {
+        "version": "8.0.0"
+    },
+    "input": {
+        "type": "cel"
+    }
+}
+```
+
+**ECS Field Reference**
+
+Refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ecs-field-reference.html) for detailed information on ECS fields.
+
+**Exported fields**
+
+| Field | Description | Type | Unit | Metric Type |
+|---|---|---|---|---|
+| @timestamp | Event timestamp. | date |  |  |
+| data_stream.dataset | Data stream dataset. | constant_keyword |  |  |
+| data_stream.namespace | Data stream namespace. | constant_keyword |  |  |
+| data_stream.type | Data stream type. | constant_keyword |  |  |
+| ecs.version | ECS version this event conforms to. | keyword |  |  |
+| error.message | Error message. | match_only_text |  |  |
+| event.dataset | Event dataset. | constant_keyword |  |  |
+| event.kind | The kind of event. | keyword |  |  |
+| event.module | Event module. | constant_keyword |  |  |
+| juniper.junos.storage.available_bytes | Number of bytes available for use on the filesystem. | long | byte | gauge |
+| juniper.junos.storage.filesystem_name | Filesystem device path (for example /dev/gpt/junos). Used as a TSDB dimension. | keyword |  |  |
+| juniper.junos.storage.mounted_on | Directory where the filesystem is mounted (for example /junos, /var). Used as a TSDB dimension. | keyword |  |  |
+| juniper.junos.storage.total_bytes | Total capacity of the filesystem in bytes. | long | byte | gauge |
+| juniper.junos.storage.used_bytes | Number of bytes currently consumed on the filesystem. | long | byte | gauge |
+| juniper.junos.storage.used_percent | Percentage of filesystem capacity currently in use. | float | percent | gauge |
+| observer.product | Observer product name. | keyword |  |  |
+| observer.type | Observer type such as router, switch, or firewall. | keyword |  |  |
+| observer.vendor | Observer vendor name. | keyword |  |  |
+
+
+### Environment
+
+The `environment` data stream collects hardware environmental sensor readings including temperatures, fan status, and power supply status. Each polling interval produces one event per monitored component.
+
+An example event for `environment` looks as following:
+
+```json
+{
+    "event": {
+        "dataset": "juniper_junos_metrics.environment",
+        "kind": "metric",
+        "module": "juniper_junos_metrics"
+    },
+    "juniper": {
+        "junos": {
+            "environment": {
+                "class": "Temp",
+                "comment": "Testing only",
+                "name": "Routing Engine 0",
+                "status": "OK",
+                "temperature": 45.0
+            }
+        }
+    },
+    "observer": {
+        "product": "JunOS",
+        "type": "router",
+        "vendor": "Juniper"
+    },
+    "data_stream": {
+        "type": "metrics",
+        "dataset": "juniper_junos_metrics.environment",
+        "namespace": "default"
+    },
+    "ecs": {
+        "version": "8.0.0"
+    },
+    "input": {
+        "type": "cel"
+    }
+}
+```
+
+**ECS Field Reference**
+
+Refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ecs-field-reference.html) for detailed information on ECS fields.
+
+**Exported fields**
+
+| Field | Description | Type | Metric Type |
+|---|---|---|---|
+| @timestamp | Event timestamp. | date |  |
+| data_stream.dataset | Data stream dataset. | constant_keyword |  |
+| data_stream.namespace | Data stream namespace. | constant_keyword |  |
+| data_stream.type | Data stream type. | constant_keyword |  |
+| ecs.version | ECS version this event conforms to. | keyword |  |
+| error.message | Error message. | match_only_text |  |
+| event.dataset | Event dataset. | constant_keyword |  |
+| event.kind | The kind of event. | keyword |  |
+| event.module | Event module. | constant_keyword |  |
+| juniper.junos.environment.class | Category of the environmental sensor (for example Temp, Fans, Power). | keyword |  |
+| juniper.junos.environment.comment | Supplemental detail from Junos about the component state (for example fan RPM, power draw). | keyword |  |
+| juniper.junos.environment.name | Name of the hardware component being monitored (for example Routing Engine 0, FPC 0 CPU, PSU 0). Used as a TSDB dimension. | keyword |  |
+| juniper.junos.environment.status | Health status reported by the component (for example OK, Check, Failed, Absent). | keyword |  |
+| juniper.junos.environment.temperature | Temperature reading from the component sensor in degrees Celsius, if applicable. | float | gauge |
+| observer.product | Observer product name. | keyword |  |
+| observer.type | Observer type such as router, switch, or firewall. | keyword |  |
+| observer.vendor | Observer vendor name. | keyword |  |
+
+
+### Alarm
+
+The `alarm` data stream collects active system alarms including severity, type, and description. Each polling interval produces one event per active alarm.
+
+An example event for `alarm` looks as following:
+
+```json
+{
+    "@timestamp": "2026-03-10T08:02:45Z",
+    "event": {
+        "dataset": "juniper_junos_metrics.alarm",
+        "kind": "event",
+        "module": "juniper_junos_metrics"
+    },
+    "juniper": {
+        "junos": {
+            "alarm": {
+                "class": "Major",
+                "description": "FPC 0 Hard errors",
+                "short_description": "FPC 0 Hard errors",
+                "time": "2026-03-10T08:02:45Z",
+                "type": "Chassis"
+            }
+        }
+    },
+    "observer": {
+        "product": "JunOS",
+        "type": "router",
+        "vendor": "Juniper"
+    },
+    "data_stream": {
+        "type": "logs",
+        "dataset": "juniper_junos_metrics.alarm",
+        "namespace": "default"
+    },
+    "ecs": {
+        "version": "8.0.0"
+    },
+    "input": {
+        "type": "cel"
+    }
+}
+```
+
+**ECS Field Reference**
+
+Refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ecs-field-reference.html) for detailed information on ECS fields.
+
+**Exported fields**
+
+| Field | Description | Type |
+|---|---|---|
+| @timestamp | Event timestamp. | date |
+| data_stream.dataset | Data stream dataset. | constant_keyword |
+| data_stream.namespace | Data stream namespace. | constant_keyword |
+| data_stream.type | Data stream type. | constant_keyword |
+| ecs.version | ECS version this event conforms to. | keyword |
+| error.message | Error message. | match_only_text |
+| event.dataset | Event dataset. | constant_keyword |
+| event.kind | The kind of event. | keyword |
+| event.module | Event module. | constant_keyword |
+| juniper.junos.alarm.class | Severity class of the alarm (for example Major, Minor). | keyword |
+| juniper.junos.alarm.description | Full human-readable alarm message as reported by Junos. | keyword |
+| juniper.junos.alarm.short_description | Abbreviated alarm message suitable for display in summary views. | keyword |
+| juniper.junos.alarm.time | Timestamp when the alarm was raised by Junos. | date |
+| juniper.junos.alarm.type | Subsystem that generated the alarm (for example Interface, Chassis, Configuration). | keyword |
+| observer.product | Observer product name. | keyword |
+| observer.type | Observer type such as router, switch, or firewall. | keyword |
+| observer.vendor | Observer vendor name. | keyword |
 
 
 ## Setup

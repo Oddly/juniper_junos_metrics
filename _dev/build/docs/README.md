@@ -32,6 +32,78 @@ Refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ec
 
 {{fields "interfaces"}}
 
+### BGP
+
+The `bgp` data stream collects BGP peer summary information including peer state, AS numbers, route counts, and flap statistics. Each polling interval produces one event per BGP peer.
+
+{{event "bgp"}}
+
+**ECS Field Reference**
+
+Refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ecs-field-reference.html) for detailed information on ECS fields.
+
+{{fields "bgp"}}
+
+### OSPF
+
+The `ospf` data stream collects OSPF area overview information including area ID, neighbor counts, interface counts, and stub configuration. Each polling interval produces one event per OSPF area.
+
+{{event "ospf"}}
+
+**ECS Field Reference**
+
+Refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ecs-field-reference.html) for detailed information on ECS fields.
+
+{{fields "ospf"}}
+
+### Routing Table
+
+The `routing_table` data stream collects routing table summary statistics including active, total, holddown, and hidden route counts per table. Each polling interval produces one event per routing table.
+
+{{event "routing_table"}}
+
+**ECS Field Reference**
+
+Refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ecs-field-reference.html) for detailed information on ECS fields.
+
+{{fields "routing_table"}}
+
+### Storage
+
+The `storage` data stream collects filesystem usage statistics including total, used, and available bytes, and utilization percentage. Each polling interval produces one event per mounted filesystem.
+
+{{event "storage"}}
+
+**ECS Field Reference**
+
+Refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ecs-field-reference.html) for detailed information on ECS fields.
+
+{{fields "storage"}}
+
+### Environment
+
+The `environment` data stream collects hardware environmental sensor readings including temperatures, fan status, and power supply status. Each polling interval produces one event per monitored component.
+
+{{event "environment"}}
+
+**ECS Field Reference**
+
+Refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ecs-field-reference.html) for detailed information on ECS fields.
+
+{{fields "environment"}}
+
+### Alarm
+
+The `alarm` data stream collects active system alarms including severity, type, and description. Each polling interval produces one event per active alarm.
+
+{{event "alarm"}}
+
+**ECS Field Reference**
+
+Refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ecs-field-reference.html) for detailed information on ECS fields.
+
+{{fields "alarm"}}
+
 ## Setup
 
 ### JunOS device configuration

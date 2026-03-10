@@ -33,7 +33,6 @@
       description: Physical link mode (for example Full-Duplex, Half-Duplex).
     - name: snmp_index
       type: long
-      metric_type: gauge
       description: SNMP ifIndex value assigned to this interface for SNMP polling.
     - name: traffic
       type: group
