@@ -674,12 +674,11 @@ Refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ec
 
 ### JunOS device configuration
 
-Create a read-only login class and user with the minimum permissions needed for this integration:
+Create a read-only login class and user for this integration:
 
 ```
-# Create a login class with only view permissions and REST API access
+# Create a login class with read-only operational access
 set system login class elastic-monitor permissions view
-set system login class elastic-monitor allow-commands "show.*"
 set system login class elastic-monitor deny-commands "configure|edit|set|delete|rollback|commit|request|start|restart|clear|file"
 
 # Create the user
@@ -693,11 +692,16 @@ set system services rest http port 8080
 # set system services rest https port 3443
 # set system services rest https default-certificate
 
+# Optional: restrict REST API access to the Elastic Agent IP
+set system services rest control allowed-sources 10.0.0.50/32
+
 # Commit
 commit
 ```
 
-The `view` permission is sufficient because all 8 RPC endpoints this integration calls (`get-route-engine-information`, `get-interface-information`, `get-bgp-summary-information`, `get-ospf-overview-information`, `get-route-summary-information`, `get-system-storage`, `get-environment-information`, `get-alarm-information`) are read-only `show` equivalents. No `configure`, `edit`, or `request` permissions are needed.
+The `view` permission grants read-only access to all operational data on the device. This integration only calls 8 specific RPC endpoints (`get-route-engine-information`, `get-interface-information`, `get-bgp-summary-information`, `get-ospf-overview-information`, `get-route-summary-information`, `get-system-storage`, `get-environment-information`, `get-alarm-information`), but JunOS does not support per-RPC access control. The `view` permission is the minimum required class, and no `configure`, `edit`, or `request` permissions are granted.
+
+To limit exposure, use the `allowed-sources` option shown above to restrict REST API access to only the Elastic Agent host, and prefer HTTPS to protect credentials in transit.
 
 ### Elastic Agent configuration
 
