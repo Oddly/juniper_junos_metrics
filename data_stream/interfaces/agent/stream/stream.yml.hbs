@@ -16,13 +16,14 @@ program: |
         && "physical-interface" in body["interface-information"][0] ?
           {"events": body["interface-information"][0]["physical-interface"].map(iface, {
             "message": iface.encode_json(),
+            "observer.name": "{{host}}",
             "juniper.junos.interfaces.name": "name" in iface && size(iface["name"]) > 0 ? string(iface["name"][0]["data"]) : "unknown",
           })}
         :
-          {"events": [{"message": "debug: body structure mismatch", "juniper.junos.interfaces.name": "debug"}]}
+          {"events": [{"message": "debug: body structure mismatch", "observer.name": "{{host}}", "juniper.junos.interfaces.name": "debug"}]}
       )
     :
-      {"events": [{"message": "debug: non-200 status " + string(resp.StatusCode), "juniper.junos.interfaces.name": "debug"}]}
+      {"events": [{"message": "debug: non-200 status " + string(resp.StatusCode), "observer.name": "{{host}}", "juniper.junos.interfaces.name": "debug"}]}
   )
 interval: {{period}}
 {{#if tags}}

@@ -16,6 +16,7 @@ program: |
         && "alarm-detail" in body["alarm-information"][0] ?
           {"events": body["alarm-information"][0]["alarm-detail"].map(alarm, {
             "message": alarm.encode_json(),
+            "observer.name": "{{host}}",
           })}
         :
           {"events": []}

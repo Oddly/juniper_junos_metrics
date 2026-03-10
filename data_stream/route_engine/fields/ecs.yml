@@ -13,6 +13,10 @@
 - name: observer.product
   type: keyword
   description: Observer product name.
+- name: observer.name
+  type: keyword
+  dimension: true
+  description: Device address configured for this integration instance, used as a TSDB dimension to distinguish devices.
 - name: observer.type
   type: keyword
   description: Observer type such as router, switch, or firewall.

@@ -117,6 +117,7 @@ Refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ec
 | juniper.junos.route_engine.temperature.cpu | Current CPU die temperature in degrees Celsius. | float |  | gauge |
 | juniper.junos.route_engine.temperature.routing_engine | Current route engine board temperature in degrees Celsius. | float |  | gauge |
 | juniper.junos.route_engine.uptime | Time elapsed since the route engine last booted, in seconds. | long | s | gauge |
+| observer.name | Device address configured for this integration instance, used as a TSDB dimension to distinguish devices. | keyword |  |  |
 | observer.product | Observer product name. | keyword |  |  |
 | observer.type | Observer type such as router, switch, or firewall. | keyword |  |  |
 | observer.vendor | Observer vendor name. | keyword |  |  |
@@ -218,6 +219,7 @@ Refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ec
 | juniper.junos.interfaces.traffic.output.packets | Cumulative number of packets transmitted on the interface. | long |  | counter |
 | juniper.junos.interfaces.traffic.output.pps | Current outbound traffic rate in packets per second. | long |  | gauge |
 | juniper.junos.interfaces.type | Interface media type (for example Ethernet, SONET, Loopback). | keyword |  |  |
+| observer.name | Device address configured for this integration instance, used as a TSDB dimension to distinguish devices. | keyword |  |  |
 | observer.product | Observer product name. | keyword |  |  |
 | observer.type | Observer type such as router, switch, or firewall. | keyword |  |  |
 | observer.vendor | Observer vendor name. | keyword |  |  |
@@ -300,6 +302,7 @@ Refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ec
 | juniper.junos.bgp.peer.output_messages | Cumulative number of BGP messages sent to this peer. | long |  | counter |
 | juniper.junos.bgp.peer.state | Current BGP FSM state of the peer (for example Established, Active, Connect, OpenSent). | keyword |  |  |
 | juniper.junos.bgp.peer_count | Total number of configured BGP peers across all groups. | long |  | gauge |
+| observer.name | Device address configured for this integration instance, used as a TSDB dimension to distinguish devices. | keyword |  |  |
 | observer.product | Observer product name. | keyword |  |  |
 | observer.type | Observer type such as router, switch, or firewall. | keyword |  |  |
 | observer.vendor | Observer vendor name. | keyword |  |  |
@@ -378,6 +381,7 @@ Refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ec
 | juniper.junos.ospf.area.stub_type | Area stub configuration type (for example Not Stub, Stub, NSSA). | keyword |  |
 | juniper.junos.ospf.instance_name | Name of the OSPF routing instance. Used as a TSDB dimension. | keyword |  |
 | juniper.junos.ospf.router_id | OSPF router ID in dotted-decimal notation. Used as a TSDB dimension. | keyword |  |
+| observer.name | Device address configured for this integration instance, used as a TSDB dimension to distinguish devices. | keyword |  |
 | observer.product | Observer product name. | keyword |  |
 | observer.type | Observer type such as router, switch, or firewall. | keyword |  |
 | observer.vendor | Observer vendor name. | keyword |  |
@@ -452,6 +456,7 @@ Refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ec
 | juniper.junos.routing_table.router_id | Router ID of the device in dotted-decimal notation. Used as a TSDB dimension. | keyword |  |
 | juniper.junos.routing_table.table_name | Routing table name (for example inet.0, inet6.0, mpls.0). Used as a TSDB dimension. | keyword |  |
 | juniper.junos.routing_table.total_route_count | Total number of routes in the routing table, including inactive and hidden routes. | long | gauge |
+| observer.name | Device address configured for this integration instance, used as a TSDB dimension to distinguish devices. | keyword |  |
 | observer.product | Observer product name. | keyword |  |
 | observer.type | Observer type such as router, switch, or firewall. | keyword |  |
 | observer.vendor | Observer vendor name. | keyword |  |
@@ -524,6 +529,7 @@ Refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ec
 | juniper.junos.storage.total_bytes | Total capacity of the filesystem in bytes. | long | byte | gauge |
 | juniper.junos.storage.used_bytes | Number of bytes currently consumed on the filesystem. | long | byte | gauge |
 | juniper.junos.storage.used_percent | Percentage of filesystem capacity currently in use. | float | percent | gauge |
+| observer.name | Device address configured for this integration instance, used as a TSDB dimension to distinguish devices. | keyword |  |  |
 | observer.product | Observer product name. | keyword |  |  |
 | observer.type | Observer type such as router, switch, or firewall. | keyword |  |  |
 | observer.vendor | Observer vendor name. | keyword |  |  |
@@ -594,6 +600,7 @@ Refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ec
 | juniper.junos.environment.name | Name of the hardware component being monitored (for example Routing Engine 0, FPC 0 CPU, PSU 0). Used as a TSDB dimension. | keyword |  |
 | juniper.junos.environment.status | Health status reported by the component (for example OK, Check, Failed, Absent). | keyword |  |
 | juniper.junos.environment.temperature | Temperature reading from the component sensor in degrees Celsius, if applicable. | float | gauge |
+| observer.name | Device address configured for this integration instance, used as a TSDB dimension to distinguish devices. | keyword |  |
 | observer.product | Observer product name. | keyword |  |
 | observer.type | Observer type such as router, switch, or firewall. | keyword |  |
 | observer.vendor | Observer vendor name. | keyword |  |
@@ -665,6 +672,7 @@ Refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ec
 | juniper.junos.alarm.short_description | Abbreviated alarm message suitable for display in summary views. | keyword |
 | juniper.junos.alarm.time | Timestamp when the alarm was raised by Junos. | date |
 | juniper.junos.alarm.type | Subsystem that generated the alarm (for example Interface, Chassis, Configuration). | keyword |
+| observer.name | Device address configured for this integration instance, used as a TSDB dimension to distinguish devices. | keyword |
 | observer.product | Observer product name. | keyword |
 | observer.type | Observer type such as router, switch, or firewall. | keyword |
 | observer.vendor | Observer vendor name. | keyword |

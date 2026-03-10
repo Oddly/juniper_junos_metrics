@@ -23,15 +23,16 @@ program: |
                   "ospf-router-id": overview["ospf-router-id"],
                   "area": area
                 }.encode_json(),
+                "observer.name": "{{host}}",
                 "juniper.junos.ospf.instance_name": "instance-name" in overview && size(overview["instance-name"]) > 0 ? string(overview["instance-name"][0]["data"]) : "unknown",
                 "juniper.junos.ospf.router_id": "ospf-router-id" in overview && size(overview["ospf-router-id"]) > 0 ? string(overview["ospf-router-id"][0]["data"]) : "unknown",
                 "juniper.junos.ospf.area.id": "ospf-area" in area && size(area["ospf-area"]) > 0 ? string(area["ospf-area"][0]["data"]) : "unknown",
               })}
-            : {"events": [{"message": "debug: body structure mismatch", "juniper.junos.ospf.instance_name": "debug", "juniper.junos.ospf.router_id": "debug", "juniper.junos.ospf.area.id": "debug"}]}
+            : {"events": [{"message": "debug: body structure mismatch", "observer.name": "{{host}}", "juniper.junos.ospf.instance_name": "debug", "juniper.junos.ospf.router_id": "debug", "juniper.junos.ospf.area.id": "debug"}]}
           )
-        : {"events": [{"message": "debug: body structure mismatch", "juniper.junos.ospf.instance_name": "debug", "juniper.junos.ospf.router_id": "debug", "juniper.junos.ospf.area.id": "debug"}]}
+        : {"events": [{"message": "debug: body structure mismatch", "observer.name": "{{host}}", "juniper.junos.ospf.instance_name": "debug", "juniper.junos.ospf.router_id": "debug", "juniper.junos.ospf.area.id": "debug"}]}
       )
-    : {"events": [{"message": "debug: non-200 status " + string(resp.StatusCode), "juniper.junos.ospf.instance_name": "debug", "juniper.junos.ospf.router_id": "debug", "juniper.junos.ospf.area.id": "debug"}]}
+    : {"events": [{"message": "debug: non-200 status " + string(resp.StatusCode), "observer.name": "{{host}}", "juniper.junos.ospf.instance_name": "debug", "juniper.junos.ospf.router_id": "debug", "juniper.junos.ospf.area.id": "debug"}]}
   )
 interval: {{period}}
 {{#if tags}}

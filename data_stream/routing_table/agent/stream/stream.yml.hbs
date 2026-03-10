@@ -17,17 +17,18 @@ program: |
             "route-table" in info ?
               {"events": info["route-table"].map(rt, {
                 "message": {"router-id": info["router-id"], "route-table": rt}.encode_json(),
+                "observer.name": "{{host}}",
                 "juniper.junos.routing_table.router_id": "router-id" in info && size(info["router-id"]) > 0 ? string(info["router-id"][0]["data"]) : "unknown",
                 "juniper.junos.routing_table.table_name": "table-name" in rt && size(rt["table-name"]) > 0 ? string(rt["table-name"][0]["data"]) : "unknown",
               })}
             :
-              {"events": [{"message": "debug: body structure mismatch", "juniper.junos.routing_table.router_id": "debug", "juniper.junos.routing_table.table_name": "debug"}]}
+              {"events": [{"message": "debug: body structure mismatch", "observer.name": "{{host}}", "juniper.junos.routing_table.router_id": "debug", "juniper.junos.routing_table.table_name": "debug"}]}
           )
         :
-          {"events": [{"message": "debug: body structure mismatch", "juniper.junos.routing_table.router_id": "debug", "juniper.junos.routing_table.table_name": "debug"}]}
+          {"events": [{"message": "debug: body structure mismatch", "observer.name": "{{host}}", "juniper.junos.routing_table.router_id": "debug", "juniper.junos.routing_table.table_name": "debug"}]}
       )
     :
-      {"events": [{"message": "debug: non-200 status " + string(resp.StatusCode), "juniper.junos.routing_table.router_id": "debug", "juniper.junos.routing_table.table_name": "debug"}]}
+      {"events": [{"message": "debug: non-200 status " + string(resp.StatusCode), "observer.name": "{{host}}", "juniper.junos.routing_table.router_id": "debug", "juniper.junos.routing_table.table_name": "debug"}]}
   )
 interval: {{period}}
 {{#if tags}}

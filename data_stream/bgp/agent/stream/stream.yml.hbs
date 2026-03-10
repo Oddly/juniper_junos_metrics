@@ -22,15 +22,16 @@ program: |
                 "down-peer-count": info["down-peer-count"],
                 "peer": peer
               }.encode_json(),
+              "observer.name": "{{host}}",
               "juniper.junos.bgp.peer.address": "peer-address" in peer && size(peer["peer-address"]) > 0 ? string(peer["peer-address"][0]["data"]) : "unknown",
               "juniper.junos.bgp.peer.as": "peer-as" in peer && size(peer["peer-as"]) > 0 ? string(peer["peer-as"][0]["data"]) : "0",
             })}
           )
         :
-          {"events": [{"message": "debug: body structure mismatch", "juniper.junos.bgp.peer.address": "debug", "juniper.junos.bgp.peer.as": "debug"}]}
+          {"events": [{"message": "debug: body structure mismatch", "observer.name": "{{host}}", "juniper.junos.bgp.peer.address": "debug", "juniper.junos.bgp.peer.as": "debug"}]}
       )
     :
-      {"events": [{"message": "debug: non-200 status " + string(resp.StatusCode), "juniper.junos.bgp.peer.address": "debug", "juniper.junos.bgp.peer.as": "debug"}]}
+      {"events": [{"message": "debug: non-200 status " + string(resp.StatusCode), "observer.name": "{{host}}", "juniper.junos.bgp.peer.address": "debug", "juniper.junos.bgp.peer.as": "debug"}]}
   )
 interval: {{period}}
 {{#if tags}}

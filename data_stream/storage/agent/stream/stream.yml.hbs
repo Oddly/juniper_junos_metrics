@@ -16,14 +16,15 @@ program: |
         && "filesystem" in body["system-storage-information"][0] ?
           {"events": body["system-storage-information"][0]["filesystem"].map(fs, {
             "message": fs.encode_json(),
+            "observer.name": "{{host}}",
             "juniper.junos.storage.filesystem_name": "filesystem-name" in fs && size(fs["filesystem-name"]) > 0 ? string(fs["filesystem-name"][0]["data"]) : "unknown",
             "juniper.junos.storage.mounted_on": "mounted-on" in fs && size(fs["mounted-on"]) > 0 ? string(fs["mounted-on"][0]["data"]) : "unknown",
           })}
         :
-          {"events": [{"message": "debug: body structure mismatch", "juniper.junos.storage.filesystem_name": "debug", "juniper.junos.storage.mounted_on": "debug"}]}
+          {"events": [{"message": "debug: body structure mismatch", "observer.name": "{{host}}", "juniper.junos.storage.filesystem_name": "debug", "juniper.junos.storage.mounted_on": "debug"}]}
       )
     :
-      {"events": [{"message": "debug: non-200 status " + string(resp.StatusCode), "juniper.junos.storage.filesystem_name": "debug", "juniper.junos.storage.mounted_on": "debug"}]}
+      {"events": [{"message": "debug: non-200 status " + string(resp.StatusCode), "observer.name": "{{host}}", "juniper.junos.storage.filesystem_name": "debug", "juniper.junos.storage.mounted_on": "debug"}]}
   )
 interval: {{period}}
 {{#if tags}}

@@ -1,3 +1,17 @@
+- version: "0.2.0"
+  changes:
+    - description: Add observer.name as TSDB dimension to all data streams for multi-device support.
+      type: enhancement
+      link: https://github.com/elastic/integrations/pull/1
+    - description: Move policy template vars to input level for reliable HBS template rendering.
+      type: bugfix
+      link: https://github.com/elastic/integrations/pull/1
+    - description: Add observer.name to debug event paths so dimension is present even on API errors.
+      type: bugfix
+      link: https://github.com/elastic/integrations/pull/1
+    - description: Add dimension to interfaces.snmp_index for TSDB compliance.
+      type: bugfix
+      link: https://github.com/elastic/integrations/pull/1
 - version: "0.1.0"
   changes:
     - description: Initial release with 8 data streams collecting metrics from Juniper JunOS devices via REST API.
