@@ -1,0 +1,84 @@
+{
+    "id": "juniper_junos_metrics-overview",
+    "type": "dashboard",
+    "namespaces": [
+        "default"
+    ],
+    "migrationVersion": {
+        "dashboard": "8.9.0"
+    },
+    "attributes": {
+        "title": "[Juniper JunOS] Overview",
+        "description": "High-level overview of JunOS device health",
+        "kibanaSavedObjectMeta": {
+            "searchSourceJSON": "{\"query\": {\"query\": \"\", \"language\": \"kuery\"}, \"filter\": []}"
+        },
+        "optionsJSON": "{\"useMargins\": true, \"syncColors\": false, \"syncCursor\": true, \"syncTooltips\": false, \"hidePanelTitles\": false}",
+        "panelsJSON": "[{\"type\": \"links\", \"gridData\": {\"x\": 0, \"y\": 0, \"w\": 48, \"h\": 4, \"i\": \"panel_links\"}, \"panelIndex\": \"panel_links\", \"embeddableConfig\": {\"enhancements\": {}, \"attributes\": {\"title\": \"\", \"layout\": \"horizontal\", \"links\": [{\"label\": \"[Juniper JunOS] Overview\", \"type\": \"dashboardLink\", \"id\": \"juniper_junos_metrics-overview\", \"options\": {\"openInNewTab\": false, \"useCurrentDateRange\": true, \"useCurrentFilters\": false}, \"order\": 0, \"destinationRefName\": \"link_juniper_junos_metrics-overview_dashboard\"}, {\"label\": \"[Juniper JunOS] Route Engine\", \"type\": \"dashboardLink\", \"id\": \"juniper_junos_metrics-route-engine\", \"options\": {\"openInNewTab\": false, \"useCurrentDateRange\": true, \"useCurrentFilters\": false}, \"order\": 1, \"destinationRefName\": \"link_juniper_junos_metrics-route-engine_dashboard\"}, {\"label\": \"[Juniper JunOS] Interfaces\", \"type\": \"dashboardLink\", \"id\": \"juniper_junos_metrics-interfaces\", \"options\": {\"openInNewTab\": false, \"useCurrentDateRange\": true, \"useCurrentFilters\": false}, \"order\": 2, \"destinationRefName\": \"link_juniper_junos_metrics-interfaces_dashboard\"}]}}, \"title\": \"\"}, {\"type\": \"visualization\", \"gridData\": {\"x\": 0, \"y\": 4, \"w\": 48, \"h\": 5, \"i\": \"panel_markdown\"}, \"panelIndex\": \"panel_markdown\", \"embeddableConfig\": {\"enhancements\": {}, \"savedVis\": {\"data\": {\"aggs\": [], \"searchSource\": {\"filter\": [], \"query\": {\"language\": \"kuery\", \"query\": \"\"}}}, \"description\": \"\", \"params\": {\"fontSize\": 12, \"markdown\": \"High-level overview of Juniper JunOS device health \\u2014 route engine status, BGP peers, OSPF neighbors, and routing tables. For detailed route engine metrics, see the **Route Engine** dashboard. For interface statistics, see the **Interfaces** dashboard.\\n\\n[**Integration Page**](/app/integrations/detail/juniper_junos_metrics/overview)\", \"openLinksInNewTab\": false}, \"title\": \"\", \"type\": \"markdown\", \"uiState\": {}}}, \"title\": \"\"}, {\"type\": \"lens\", \"gridData\": {\"x\": 0, \"y\": 9, \"w\": 12, \"h\": 4, \"i\": \"panel_cpu_utilization\"}, \"panelIndex\": \"panel_cpu_utilization\", \"embeddableConfig\": {\"enhancements\": {}, \"attributes\": {\"title\": \"\", \"visualizationType\": \"lnsMetric\", \"state\": {\"datasourceStates\": {\"formBased\": {\"layers\": {\"layer1\": {\"columnOrder\": [\"m\"], \"columns\": {\"m\": {\"label\": \"CPU Utilization\", \"dataType\": \"number\", \"operationType\": \"last_value\", \"sourceField\": \"system.cpu.utilization\", \"params\": {\"sortField\": \"@timestamp\", \"showArrayValues\": false, \"format\": {\"id\": \"percent\", \"params\": {\"decimals\": 1}}}, \"isBucketed\": false, \"scale\": \"ratio\", \"customLabel\": true}}}}}}, \"visualization\": {\"layerId\": \"layer1\", \"layerType\": \"data\", \"metricAccessor\": \"m\", \"color\": \"#6092C0\"}, \"query\": {\"query\": \"\", \"language\": \"kuery\"}, \"filters\": [{\"meta\": {\"index\": \"metrics-*\", \"negate\": false, \"disabled\": false, \"alias\": null, \"type\": \"phrase\", \"key\": \"event.dataset\", \"params\": {\"query\": \"juniper_junos_metrics.route_engine\"}}, \"query\": {\"match_phrase\": {\"event.dataset\": \"juniper_junos_metrics.route_engine\"}}}]}, \"references\": [{\"type\": \"index-pattern\", \"id\": \"metrics-*\", \"name\": \"indexpattern-datasource-layer-layer1\"}]}}}, {\"type\": \"lens\", \"gridData\": {\"x\": 12, \"y\": 9, \"w\": 12, \"h\": 4, \"i\": \"panel_memory_utilization\"}, \"panelIndex\": \"panel_memory_utilization\", \"embeddableConfig\": {\"enhancements\": {}, \"attributes\": {\"title\": \"\", \"visualizationType\": \"lnsMetric\", \"state\": {\"datasourceStates\": {\"formBased\": {\"layers\": {\"layer1\": {\"columnOrder\": [\"m\"], \"columns\": {\"m\": {\"label\": \"Memory Utilization\", \"dataType\": \"number\", \"operationType\": \"last_value\", \"sourceField\": \"system.memory.utilization\", \"params\": {\"sortField\": \"@timestamp\", \"showArrayValues\": false, \"format\": {\"id\": \"percent\", \"params\": {\"decimals\": 1}}}, \"isBucketed\": false, \"scale\": \"ratio\", \"customLabel\": true}}}}}}, \"visualization\": {\"layerId\": \"layer1\", \"layerType\": \"data\", \"metricAccessor\": \"m\", \"color\": \"#54B399\"}, \"query\": {\"query\": \"\", \"language\": \"kuery\"}, \"filters\": [{\"meta\": {\"index\": \"metrics-*\", \"negate\": false, \"disabled\": false, \"alias\": null, \"type\": \"phrase\", \"key\": \"event.dataset\", \"params\": {\"query\": \"juniper_junos_metrics.route_engine\"}}, \"query\": {\"match_phrase\": {\"event.dataset\": \"juniper_junos_metrics.route_engine\"}}}]}, \"references\": [{\"type\": \"index-pattern\", \"id\": \"metrics-*\", \"name\": \"indexpattern-datasource-layer-layer1\"}]}}}, {\"type\": \"lens\", \"gridData\": {\"x\": 24, \"y\": 9, \"w\": 12, \"h\": 4, \"i\": \"panel_uptime\"}, \"panelIndex\": \"panel_uptime\", \"embeddableConfig\": {\"enhancements\": {}, \"attributes\": {\"title\": \"\", \"visualizationType\": \"lnsMetric\", \"state\": {\"datasourceStates\": {\"formBased\": {\"layers\": {\"layer1\": {\"columnOrder\": [\"m\"], \"columns\": {\"m\": {\"label\": \"Uptime\", \"dataType\": \"number\", \"operationType\": \"last_value\", \"sourceField\": \"juniper.junos.route_engine.uptime\", \"params\": {\"sortField\": \"@timestamp\", \"showArrayValues\": false, \"format\": {\"id\": \"duration\", \"params\": {\"inputFormat\": \"seconds\", \"outputFormat\": \"humanizePrecise\", \"outputPrecision\": 0}}}, \"isBucketed\": false, \"scale\": \"ratio\", \"customLabel\": true}}}}}}, \"visualization\": {\"layerId\": \"layer1\", \"layerType\": \"data\", \"metricAccessor\": \"m\", \"color\": \"#D6BF57\"}, \"query\": {\"query\": \"\", \"language\": \"kuery\"}, \"filters\": [{\"meta\": {\"index\": \"metrics-*\", \"negate\": false, \"disabled\": false, \"alias\": null, \"type\": \"phrase\", \"key\": \"event.dataset\", \"params\": {\"query\": \"juniper_junos_metrics.route_engine\"}}, \"query\": {\"match_phrase\": {\"event.dataset\": \"juniper_junos_metrics.route_engine\"}}}]}, \"references\": [{\"type\": \"index-pattern\", \"id\": \"metrics-*\", \"name\": \"indexpattern-datasource-layer-layer1\"}]}}}, {\"type\": \"lens\", \"gridData\": {\"x\": 36, \"y\": 9, \"w\": 12, \"h\": 4, \"i\": \"panel_re_status\"}, \"panelIndex\": \"panel_re_status\", \"embeddableConfig\": {\"enhancements\": {}, \"attributes\": {\"title\": \"\", \"visualizationType\": \"lnsMetric\", \"state\": {\"datasourceStates\": {\"formBased\": {\"layers\": {\"layer1\": {\"columnOrder\": [\"m\"], \"columns\": {\"m\": {\"label\": \"RE Status\", \"dataType\": \"string\", \"operationType\": \"last_value\", \"sourceField\": \"juniper.junos.route_engine.status\", \"params\": {\"sortField\": \"@timestamp\", \"showArrayValues\": false}, \"isBucketed\": false, \"scale\": \"ordinal\", \"customLabel\": true}}}}}}, \"visualization\": {\"layerId\": \"layer1\", \"layerType\": \"data\", \"metricAccessor\": \"m\", \"color\": \"#54B399\"}, \"query\": {\"query\": \"\", \"language\": \"kuery\"}, \"filters\": [{\"meta\": {\"index\": \"metrics-*\", \"negate\": false, \"disabled\": false, \"alias\": null, \"type\": \"phrase\", \"key\": \"event.dataset\", \"params\": {\"query\": \"juniper_junos_metrics.route_engine\"}}, \"query\": {\"match_phrase\": {\"event.dataset\": \"juniper_junos_metrics.route_engine\"}}}]}, \"references\": [{\"type\": \"index-pattern\", \"id\": \"metrics-*\", \"name\": \"indexpattern-datasource-layer-layer1\"}]}}}, {\"type\": \"lens\", \"gridData\": {\"x\": 0, \"y\": 13, \"w\": 12, \"h\": 4, \"i\": \"panel_bgp_peers_down\"}, \"panelIndex\": \"panel_bgp_peers_down\", \"embeddableConfig\": {\"enhancements\": {}, \"attributes\": {\"title\": \"\", \"visualizationType\": \"lnsMetric\", \"state\": {\"datasourceStates\": {\"formBased\": {\"layers\": {\"layer1\": {\"columnOrder\": [\"m\"], \"columns\": {\"m\": {\"label\": \"BGP Peers Down\", \"dataType\": \"number\", \"operationType\": \"last_value\", \"sourceField\": \"juniper.junos.bgp.down_peer_count\", \"params\": {\"sortField\": \"@timestamp\", \"showArrayValues\": false}, \"isBucketed\": false, \"scale\": \"ratio\", \"customLabel\": true}}}}}}, \"visualization\": {\"layerId\": \"layer1\", \"layerType\": \"data\", \"metricAccessor\": \"m\", \"color\": \"#E7664C\"}, \"query\": {\"query\": \"\", \"language\": \"kuery\"}, \"filters\": [{\"meta\": {\"index\": \"metrics-*\", \"negate\": false, \"disabled\": false, \"alias\": null, \"type\": \"phrase\", \"key\": \"event.dataset\", \"params\": {\"query\": \"juniper_junos_metrics.bgp\"}}, \"query\": {\"match_phrase\": {\"event.dataset\": \"juniper_junos_metrics.bgp\"}}}]}, \"references\": [{\"type\": \"index-pattern\", \"id\": \"metrics-*\", \"name\": \"indexpattern-datasource-layer-layer1\"}]}}}, {\"type\": \"lens\", \"gridData\": {\"x\": 12, \"y\": 13, \"w\": 12, \"h\": 4, \"i\": \"panel_total_bgp_peers\"}, \"panelIndex\": \"panel_total_bgp_peers\", \"embeddableConfig\": {\"enhancements\": {}, \"attributes\": {\"title\": \"\", \"visualizationType\": \"lnsMetric\", \"state\": {\"datasourceStates\": {\"formBased\": {\"layers\": {\"layer1\": {\"columnOrder\": [\"m\"], \"columns\": {\"m\": {\"label\": \"Total BGP Peers\", \"dataType\": \"number\", \"operationType\": \"last_value\", \"sourceField\": \"juniper.junos.bgp.peer_count\", \"params\": {\"sortField\": \"@timestamp\", \"showArrayValues\": false}, \"isBucketed\": false, \"scale\": \"ratio\", \"customLabel\": true}}}}}}, \"visualization\": {\"layerId\": \"layer1\", \"layerType\": \"data\", \"metricAccessor\": \"m\", \"color\": \"#6092C0\"}, \"query\": {\"query\": \"\", \"language\": \"kuery\"}, \"filters\": [{\"meta\": {\"index\": \"metrics-*\", \"negate\": false, \"disabled\": false, \"alias\": null, \"type\": \"phrase\", \"key\": \"event.dataset\", \"params\": {\"query\": \"juniper_junos_metrics.bgp\"}}, \"query\": {\"match_phrase\": {\"event.dataset\": \"juniper_junos_metrics.bgp\"}}}]}, \"references\": [{\"type\": \"index-pattern\", \"id\": \"metrics-*\", \"name\": \"indexpattern-datasource-layer-layer1\"}]}}}, {\"type\": \"lens\", \"gridData\": {\"x\": 24, \"y\": 13, \"w\": 12, \"h\": 4, \"i\": \"panel_ospf_neighbors_up\"}, \"panelIndex\": \"panel_ospf_neighbors_up\", \"embeddableConfig\": {\"enhancements\": {}, \"attributes\": {\"title\": \"\", \"visualizationType\": \"lnsMetric\", \"state\": {\"datasourceStates\": {\"formBased\": {\"layers\": {\"layer1\": {\"columnOrder\": [\"m\"], \"columns\": {\"m\": {\"label\": \"OSPF Neighbors Up\", \"dataType\": \"number\", \"operationType\": \"last_value\", \"sourceField\": \"juniper.junos.ospf.area.neighbor_up_count\", \"params\": {\"sortField\": \"@timestamp\", \"showArrayValues\": false}, \"isBucketed\": false, \"scale\": \"ratio\", \"customLabel\": true}}}}}}, \"visualization\": {\"layerId\": \"layer1\", \"layerType\": \"data\", \"metricAccessor\": \"m\", \"color\": \"#54B399\"}, \"query\": {\"query\": \"\", \"language\": \"kuery\"}, \"filters\": [{\"meta\": {\"index\": \"metrics-*\", \"negate\": false, \"disabled\": false, \"alias\": null, \"type\": \"phrase\", \"key\": \"event.dataset\", \"params\": {\"query\": \"juniper_junos_metrics.ospf\"}}, \"query\": {\"match_phrase\": {\"event.dataset\": \"juniper_junos_metrics.ospf\"}}}]}, \"references\": [{\"type\": \"index-pattern\", \"id\": \"metrics-*\", \"name\": \"indexpattern-datasource-layer-layer1\"}]}}}, {\"type\": \"lens\", \"gridData\": {\"x\": 36, \"y\": 13, \"w\": 12, \"h\": 4, \"i\": \"panel_active_routes\"}, \"panelIndex\": \"panel_active_routes\", \"embeddableConfig\": {\"enhancements\": {}, \"attributes\": {\"title\": \"\", \"visualizationType\": \"lnsMetric\", \"state\": {\"datasourceStates\": {\"formBased\": {\"layers\": {\"layer1\": {\"columnOrder\": [\"m\"], \"columns\": {\"m\": {\"label\": \"Active Routes\", \"dataType\": \"number\", \"operationType\": \"last_value\", \"sourceField\": \"juniper.junos.routing_table.active_route_count\", \"params\": {\"sortField\": \"@timestamp\", \"showArrayValues\": false}, \"isBucketed\": false, \"scale\": \"ratio\", \"customLabel\": true}}}}}}, \"visualization\": {\"layerId\": \"layer1\", \"layerType\": \"data\", \"metricAccessor\": \"m\", \"color\": \"#9170B8\"}, \"query\": {\"query\": \"juniper.junos.routing_table.table_name: inet.0\", \"language\": \"kuery\"}, \"filters\": [{\"meta\": {\"index\": \"metrics-*\", \"negate\": false, \"disabled\": false, \"alias\": null, \"type\": \"phrase\", \"key\": \"event.dataset\", \"params\": {\"query\": \"juniper_junos_metrics.routing_table\"}}, \"query\": {\"match_phrase\": {\"event.dataset\": \"juniper_junos_metrics.routing_table\"}}}]}, \"references\": [{\"type\": \"index-pattern\", \"id\": \"metrics-*\", \"name\": \"indexpattern-datasource-layer-layer1\"}]}}}]",
+        "timeRestore": false,
+        "version": 1,
+        "controlGroupInput": {
+            "chainingSystem": "HIERARCHICAL",
+            "controlStyle": "oneLine",
+            "ignoreParentSettingsJSON": "{\"ignoreFilters\": false, \"ignoreQuery\": false, \"ignoreTimerange\": false, \"ignoreValidations\": true}",
+            "panelsJSON": "{\"ctrl_0\": {\"type\": \"optionsListControl\", \"order\": 0, \"grow\": true, \"width\": \"medium\", \"explicitInput\": {\"id\": \"ctrl_0\", \"fieldName\": \"host.name\", \"title\": \"Host\", \"dataViewId\": \"metrics-*\", \"enhancements\": {}}}}"
+        }
+    },
+    "references": [
+        {
+            "type": "index-pattern",
+            "id": "metrics-*",
+            "name": "panel_cpu_utilization:indexpattern-datasource-layer-layer1"
+        },
+        {
+            "type": "index-pattern",
+            "id": "metrics-*",
+            "name": "panel_memory_utilization:indexpattern-datasource-layer-layer1"
+        },
+        {
+            "type": "index-pattern",
+            "id": "metrics-*",
+            "name": "panel_uptime:indexpattern-datasource-layer-layer1"
+        },
+        {
+            "type": "index-pattern",
+            "id": "metrics-*",
+            "name": "panel_re_status:indexpattern-datasource-layer-layer1"
+        },
+        {
+            "type": "index-pattern",
+            "id": "metrics-*",
+            "name": "panel_bgp_peers_down:indexpattern-datasource-layer-layer1"
+        },
+        {
+            "type": "index-pattern",
+            "id": "metrics-*",
+            "name": "panel_total_bgp_peers:indexpattern-datasource-layer-layer1"
+        },
+        {
+            "type": "index-pattern",
+            "id": "metrics-*",
+            "name": "panel_ospf_neighbors_up:indexpattern-datasource-layer-layer1"
+        },
+        {
+            "type": "index-pattern",
+            "id": "metrics-*",
+            "name": "panel_active_routes:indexpattern-datasource-layer-layer1"
+        },
+        {
+            "name": "panel_links:link_juniper-junos-overview_dashboard",
+            "type": "dashboard",
+            "id": "juniper_junos_metrics-overview"
+        },
+        {
+            "name": "panel_links:link_juniper-junos-route-engine_dashboard",
+            "type": "dashboard",
+            "id": "juniper_junos_metrics-route-engine"
+        },
+        {
+            "name": "panel_links:link_juniper-junos-interfaces_dashboard",
+            "type": "dashboard",
+            "id": "juniper_junos_metrics-interfaces"
+        }
+    ]
+}

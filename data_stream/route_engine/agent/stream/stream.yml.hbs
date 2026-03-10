@@ -9,8 +9,8 @@ program: |
   request("GET", state.url).do_request().as(resp,
     resp.StatusCode == 200 ?
       bytes(resp.Body).decode_json().as(body,
-        has(body["route-engine-information"]) && size(body["route-engine-information"]) > 0
-        && has(body["route-engine-information"][0]["route-engine"]) ?
+        "route-engine-information" in body && size(body["route-engine-information"]) > 0
+        && "route-engine" in body["route-engine-information"][0] ?
           body["route-engine-information"][0]["route-engine"].map(re, {
             "message": re.encode_json(),
           })

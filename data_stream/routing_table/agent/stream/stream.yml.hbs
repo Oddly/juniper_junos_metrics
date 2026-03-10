@@ -9,9 +9,9 @@ program: |
   request("GET", state.url).do_request().as(resp,
     resp.StatusCode == 200 ?
       bytes(resp.Body).decode_json().as(body,
-        has(body["route-summary-information"]) && size(body["route-summary-information"]) > 0 ?
+        "route-summary-information" in body && size(body["route-summary-information"]) > 0 ?
           body["route-summary-information"][0].as(info,
-            has(info["route-table"]) ?
+            "route-table" in info ?
               info["route-table"].map(rt, {
                 "message": {"router-id": info["router-id"], "route-table": rt}.encode_json(),
               })

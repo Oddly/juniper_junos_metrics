@@ -1,8 +1,8 @@
 {
-  "expected": [
+  "events": [
     {
       "event": {
-        "ingested": "2026-03-10T08:11:21.453868841Z",
+        "ingested": "2026-03-10T08:15:56.209159626Z",
         "dataset": "juniper_junos_metrics.bgp",
         "kind": "metric",
         "module": "juniper_junos_metrics"

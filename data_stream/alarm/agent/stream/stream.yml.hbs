@@ -9,8 +9,8 @@ program: |
   request("GET", state.url).do_request().as(resp,
     resp.StatusCode == 200 ?
       bytes(resp.Body).decode_json().as(body,
-        has(body["alarm-information"]) && size(body["alarm-information"]) > 0
-        && has(body["alarm-information"][0]["alarm-detail"]) ?
+        "alarm-information" in body && size(body["alarm-information"]) > 0
+        && "alarm-detail" in body["alarm-information"][0] ?
           body["alarm-information"][0]["alarm-detail"].map(alarm, {
             "message": alarm.encode_json(),
           })

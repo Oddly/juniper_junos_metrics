@@ -1,6 +1,6 @@
 # Juniper JunOS Metrics Integration
 
-This integration collects metrics from Juniper JunOS devices via the REST API. It polls the JunOS RPC endpoints to gather route engine health, CPU, memory, load averages, and interface traffic and error statistics. The integration uses CEL input to call the JunOS REST API and produces TSDB-compatible time series data.
+This integration collects metrics from Juniper JunOS devices using the REST API. It polls the JunOS RPC endpoints to gather route engine health, CPU, memory, load averages, and interface traffic and error statistics. The integration uses CEL input to call the JunOS REST API and produces TSDB-compatible time series data.
 
 ## Compatibility
 

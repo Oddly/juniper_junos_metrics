@@ -1,4 +1,4 @@
-resource.url: {{host}}/rpc/get-interface-information@format=json
+resource.url: {{host}}/rpc/get-environment-information@format=json
 auth.basic.user: {{username}}
 auth.basic.password: {{password}}
 resource.ssl.verification_mode: {{ssl_verification_mode}}
@@ -9,10 +9,10 @@ program: |
   request("GET", state.url).do_request().as(resp,
     resp.StatusCode == 200 ?
       bytes(resp.Body).decode_json().as(body,
-        has(body["interface-information"]) && size(body["interface-information"]) > 0
-        && has(body["interface-information"][0]["physical-interface"]) ?
-          body["interface-information"][0]["physical-interface"].map(iface, {
-            "message": iface.encode_json(),
+        "environment-information" in body && size(body["environment-information"]) > 0
+        && "environment-item" in body["environment-information"][0] ?
+          body["environment-information"][0]["environment-item"].map(item, {
+            "message": item.encode_json(),
           })
         :
           []

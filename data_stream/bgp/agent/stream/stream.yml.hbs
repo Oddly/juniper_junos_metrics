@@ -9,8 +9,8 @@ program: |
   request("GET", state.url).do_request().as(resp,
     resp.StatusCode == 200 ?
       bytes(resp.Body).decode_json().as(body,
-        has(body["bgp-information"]) && size(body["bgp-information"]) > 0
-        && has(body["bgp-information"][0]["bgp-peer"]) ?
+        "bgp-information" in body && size(body["bgp-information"]) > 0
+        && "bgp-peer" in body["bgp-information"][0] ?
           body["bgp-information"][0].as(info,
             info["bgp-peer"].map(peer, {
               "message": {

@@ -18,17 +18,10 @@ processors:
       field: event.dataset
       value: juniper_junos_metrics.storage
 
-  # Preserve original message
-  - rename:
-      tag: rename_message_to_event_original
-      field: message
-      target_field: event.original
-      ignore_missing: true
-
-  # Parse JSON from event.original
+  # Parse JSON from message
   - json:
-      tag: json_parse_event_original
-      field: event.original
+      tag: json_parse_message
+      field: message
       target_field: _temp.raw
 
   # Flatten JunOS JSON: unwrap [{"data": "value"}] pattern into simple key-value pairs
@@ -134,8 +127,10 @@ processors:
 
   # Clean up temporary fields
   - remove:
-      tag: remove_temp
-      field: _temp
+      tag: remove_temp_and_message
+      field:
+        - _temp
+        - message
       ignore_missing: true
 
   # Remove event.original unless preserve tag is set

@@ -22,6 +22,7 @@
           description: BGP peer IP address.
         - name: as
           type: long
+          dimension: true
           description: BGP peer autonomous system number.
         - name: state
           type: keyword

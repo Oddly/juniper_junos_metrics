@@ -37,5 +37,4 @@
 - name: system.filesystem.utilization
   type: float
   metric_type: gauge
-  unit: "1"
   description: Filesystem utilization as a fraction from 0 to 1, mapped from used_percent divided by 100.

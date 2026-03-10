@@ -18,12 +18,10 @@
     - name: temperature.routing_engine
       type: float
       metric_type: gauge
-      unit: Cel
       description: Route engine temperature in Celsius.
     - name: temperature.cpu
       type: float
       metric_type: gauge
-      unit: Cel
       description: CPU temperature in Celsius.
     - name: cpu.user
       type: float
@@ -86,10 +84,8 @@
 - name: system.cpu.utilization
   type: float
   metric_type: gauge
-  unit: "1"
   description: CPU utilization as a fraction from 0 to 1, mapped from 1 minus cpu.idle divided by 100.
 - name: system.memory.utilization
   type: float
   metric_type: gauge
-  unit: "1"
   description: Memory utilization as a fraction from 0 to 1, mapped from memory.buffer_utilization divided by 100.

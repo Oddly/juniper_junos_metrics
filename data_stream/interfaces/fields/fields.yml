@@ -33,6 +33,7 @@
       description: Link type (for example, Full-Duplex).
     - name: snmp_index
       type: long
+      metric_type: gauge
       description: SNMP interface index.
     - name: traffic
       type: group
@@ -49,7 +50,6 @@
         - name: input.bps
           type: long
           metric_type: gauge
-          unit: bit/s
           description: Input rate in bits per second.
         - name: input.pps
           type: long
@@ -67,7 +67,6 @@
         - name: output.bps
           type: long
           metric_type: gauge
-          unit: bit/s
           description: Output rate in bits per second.
         - name: output.pps
           type: long

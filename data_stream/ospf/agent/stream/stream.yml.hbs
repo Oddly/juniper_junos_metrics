@@ -9,11 +9,11 @@ program: |
   request("GET", state.url).do_request().as(resp,
     resp.StatusCode == 200 ?
       bytes(resp.Body).decode_json().as(body,
-        has(body["ospf-overview-information"]) && size(body["ospf-overview-information"]) > 0
-        && has(body["ospf-overview-information"][0]["ospf-overview"])
+        "ospf-overview-information" in body && size(body["ospf-overview-information"]) > 0
+        && "ospf-overview" in body["ospf-overview-information"][0]
         && size(body["ospf-overview-information"][0]["ospf-overview"]) > 0 ?
           body["ospf-overview-information"][0]["ospf-overview"][0].as(overview,
-            has(overview["ospf-area-overview"]) ?
+            "ospf-area-overview" in overview ?
               overview["ospf-area-overview"].map(area, {
                 "message": {
                   "instance-name": overview["instance-name"],
