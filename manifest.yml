@@ -1,8 +1,8 @@
 format_version: "3.3.0"
 name: juniper_junos_metrics
-title: Juniper JunOS Metrics
+title: Juniper JunOS API
 version: 0.1.0
-description: Collect metrics from Juniper JunOS devices via REST API.
+description: Collect metrics and events from Juniper JunOS devices via REST API.
 type: integration
 categories:
   - network
@@ -52,8 +52,8 @@ policy_templates:
         default: none
     inputs:
       - type: cel
-        title: Collect JunOS metrics
-        description: Poll JunOS REST API for device metrics
+        title: JunOS REST API
+        description: Poll JunOS REST API for device metrics and events
 owner:
   github: elastic/obs-infraobs-integrations
   type: community

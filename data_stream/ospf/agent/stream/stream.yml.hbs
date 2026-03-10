@@ -14,18 +14,18 @@ program: |
         && size(body["ospf-overview-information"][0]["ospf-overview"]) > 0 ?
           body["ospf-overview-information"][0]["ospf-overview"][0].as(overview,
             "ospf-area-overview" in overview ?
-              overview["ospf-area-overview"].map(area, {
+              {"events": overview["ospf-area-overview"].map(area, {
                 "message": {
                   "instance-name": overview["instance-name"],
                   "ospf-router-id": overview["ospf-router-id"],
                   "area": area
                 }.encode_json(),
-              })
-            : []
+              })}
+            : {"events": []}
           )
-        : []
+        : {"events": []}
       )
-    : []
+    : {"events": []}
   )
 interval: {{period}}
 {{#if tags}}

@@ -11,14 +11,14 @@ program: |
       bytes(resp.Body).decode_json().as(body,
         "alarm-information" in body && size(body["alarm-information"]) > 0
         && "alarm-detail" in body["alarm-information"][0] ?
-          body["alarm-information"][0]["alarm-detail"].map(alarm, {
+          {"events": body["alarm-information"][0]["alarm-detail"].map(alarm, {
             "message": alarm.encode_json(),
-          })
+          })}
         :
-          []
+          {"events": []}
       )
     :
-      []
+      {"events": []}
   )
 interval: {{period}}
 {{#if tags}}

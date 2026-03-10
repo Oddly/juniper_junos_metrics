@@ -11,14 +11,14 @@ program: |
       bytes(resp.Body).decode_json().as(body,
         "system-storage-information" in body && size(body["system-storage-information"]) > 0
         && "filesystem" in body["system-storage-information"][0] ?
-          body["system-storage-information"][0]["filesystem"].map(fs, {
+          {"events": body["system-storage-information"][0]["filesystem"].map(fs, {
             "message": fs.encode_json(),
-          })
+          })}
         :
-          []
+          {"events": []}
       )
     :
-      []
+      {"events": []}
   )
 interval: {{period}}
 {{#if tags}}

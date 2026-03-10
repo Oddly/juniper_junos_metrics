@@ -11,14 +11,14 @@ program: |
       bytes(resp.Body).decode_json().as(body,
         "environment-information" in body && size(body["environment-information"]) > 0
         && "environment-item" in body["environment-information"][0] ?
-          body["environment-information"][0]["environment-item"].map(item, {
+          {"events": body["environment-information"][0]["environment-item"].map(item, {
             "message": item.encode_json(),
-          })
+          })}
         :
-          []
+          {"events": []}
       )
     :
-      []
+      {"events": []}
   )
 interval: {{period}}
 {{#if tags}}

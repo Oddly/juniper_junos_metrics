@@ -11,14 +11,14 @@ program: |
       bytes(resp.Body).decode_json().as(body,
         "route-engine-information" in body && size(body["route-engine-information"]) > 0
         && "route-engine" in body["route-engine-information"][0] ?
-          body["route-engine-information"][0]["route-engine"].map(re, {
+          {"events": body["route-engine-information"][0]["route-engine"].map(re, {
             "message": re.encode_json(),
-          })
+          })}
         :
-          []
+          {"events": []}
       )
     :
-      []
+      {"events": []}
   )
 interval: {{period}}
 {{#if tags}}

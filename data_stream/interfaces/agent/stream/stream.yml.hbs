@@ -11,14 +11,14 @@ program: |
       bytes(resp.Body).decode_json().as(body,
         "interface-information" in body && size(body["interface-information"]) > 0
         && "physical-interface" in body["interface-information"][0] ?
-          body["interface-information"][0]["physical-interface"].map(iface, {
+          {"events": body["interface-information"][0]["physical-interface"].map(iface, {
             "message": iface.encode_json(),
-          })
+          })}
         :
-          []
+          {"events": []}
       )
     :
-      []
+      {"events": []}
   )
 interval: {{period}}
 {{#if tags}}

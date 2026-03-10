@@ -12,20 +12,20 @@ program: |
         "bgp-information" in body && size(body["bgp-information"]) > 0
         && "bgp-peer" in body["bgp-information"][0] ?
           body["bgp-information"][0].as(info,
-            info["bgp-peer"].map(peer, {
+            {"events": info["bgp-peer"].map(peer, {
               "message": {
                 "group-count": info["group-count"],
                 "peer-count": info["peer-count"],
                 "down-peer-count": info["down-peer-count"],
                 "peer": peer
               }.encode_json(),
-            })
+            })}
           )
         :
-          []
+          {"events": []}
       )
     :
-      []
+      {"events": []}
   )
 interval: {{period}}
 {{#if tags}}

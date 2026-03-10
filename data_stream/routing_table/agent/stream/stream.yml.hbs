@@ -12,17 +12,17 @@ program: |
         "route-summary-information" in body && size(body["route-summary-information"]) > 0 ?
           body["route-summary-information"][0].as(info,
             "route-table" in info ?
-              info["route-table"].map(rt, {
+              {"events": info["route-table"].map(rt, {
                 "message": {"router-id": info["router-id"], "route-table": rt}.encode_json(),
-              })
+              })}
             :
-              []
+              {"events": []}
           )
         :
-          []
+          {"events": []}
       )
     :
-      []
+      {"events": []}
   )
 interval: {{period}}
 {{#if tags}}
