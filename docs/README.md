@@ -232,7 +232,6 @@ Create a read-only login class and user with the minimum permissions needed for 
 ```
 # Create a login class with only view permissions and REST API access
 set system login class elastic-monitor permissions view
-set system login class elastic-monitor permissions view-configuration
 set system login class elastic-monitor allow-commands "show.*"
 set system login class elastic-monitor deny-commands "configure|edit|set|delete|rollback|commit|request|start|restart|clear|file"
 
